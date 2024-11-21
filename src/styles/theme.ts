@@ -15,8 +15,8 @@ interface ITheme {
 }
 
 export const darkTheme: ITheme = {
-  bgr: "#f1f5f9",
-  text: "#020617",
+  bgr: "#0f172a",
+  text: "#e2e8f0",
   color_brand: "#ef4444",
   color_grey_1: "#9ca3af",
   color_grey_2: "#6b7280",
@@ -31,8 +31,8 @@ export const darkTheme: ITheme = {
 };
 
 export const lightTheme: ITheme = {
-  bgr: "#0f172a",
-  text: "#e2e8f0",
+  bgr: "#f1f5f9",
+  text: "#020617",
   color_brand: "#ef4444",
   color_grey_1: "#9ca3af",
   color_grey_2: "#6b7280",
