@@ -6,7 +6,6 @@ const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: #8b5cf6;
 `;
 
 function App() {
