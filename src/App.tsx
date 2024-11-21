@@ -3,6 +3,7 @@ import { DefaultTheme } from "styled-components/dist/types";
 
 import GlobalStyles from "./styles/GlobalStyles";
 import { THEMES } from "./styles/theme";
+import { useThemeContext } from "./context/ThemeContext";
 
 const AppContainer = styled.div`
   width: 100vw;
@@ -12,7 +13,7 @@ const AppContainer = styled.div`
 `;
 
 function App() {
-  const theme = "dark";
+  const { theme } = useThemeContext();
 
   return (
     <ThemeProvider theme={THEMES[theme] as DefaultTheme}>
