@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { SlMenu } from "react-icons/sl";
 
 import Logo from "./Logo";
+import { IconStyle } from "../../styles/IconStyle";
 
 const StyledLeftbox = styled.div`
   display: flex;
@@ -12,7 +13,9 @@ const StyledLeftbox = styled.div`
 const Leftbox = () => {
   return (
     <StyledLeftbox>
-      <SlMenu size={18} />
+      <IconStyle className="menu">
+        <SlMenu size={18} />
+      </IconStyle>
       <Logo />
     </StyledLeftbox>
   );
