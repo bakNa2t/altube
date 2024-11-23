@@ -1,8 +1,10 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { CgMoreVerticalAlt } from "react-icons/cg";
 
-import AuthBtn from "../auth/AuthBtn";
 import { IconStyle } from "../../styles/IconStyle";
+import AuthBtn from "../auth/AuthBtn";
+import Settings from "../settings/Settings";
 
 const StyledRightbox = styled.div`
   position: relative;
@@ -12,12 +14,21 @@ const StyledRightbox = styled.div`
 `;
 
 const Rightbox = () => {
+  const [showSettings, setShowSettings] = useState(false);
+
+  const toggleSettings = () => setShowSettings(!showSettings);
+
   return (
     <StyledRightbox>
-      <IconStyle data-tooltip-id="settings" data-tooltip-content="Settings">
+      <IconStyle
+        data-tooltip-id="settings"
+        data-tooltip-content="Settings"
+        onClick={toggleSettings}
+      >
         <CgMoreVerticalAlt size={20} />
       </IconStyle>
       <AuthBtn />
+      {showSettings && <Settings />}
     </StyledRightbox>
   );
 };
