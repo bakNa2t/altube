@@ -10,4 +10,9 @@ export const Text = styled.p`
     font-weight: 600;
     font-family: "M PLUS Code Latin", sans-serif;
   }
+
+  &.auth {
+    color: ${(props) => props.theme.color_blue};
+    font-weight: bolder;
+  }
 `;
