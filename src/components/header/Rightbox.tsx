@@ -1,4 +1,8 @@
 import styled from "styled-components";
+import { CgMoreVerticalAlt } from "react-icons/cg";
+
+import AuthBtn from "../auth/AuthBtn";
+import { IconStyle } from "../../styles/IconStyle";
 
 const StyledRightbox = styled.div`
   position: relative;
@@ -8,7 +12,14 @@ const StyledRightbox = styled.div`
 `;
 
 const Rightbox = () => {
-  return <StyledRightbox>Rightbox</StyledRightbox>;
+  return (
+    <StyledRightbox>
+      <IconStyle data-tooltip-id="settings" data-tooltip-content="Settings">
+        <CgMoreVerticalAlt size={20} />
+      </IconStyle>
+      <AuthBtn />
+    </StyledRightbox>
+  );
 };
 
 export default Rightbox;
