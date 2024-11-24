@@ -4,6 +4,8 @@ import { GoMoon } from "react-icons/go";
 
 import SettingRow from "./SettingRow";
 
+import { useThemeContext } from "../../context/ThemeContext";
+
 const StyledSettings = styled.div`
   position: absolute;
   top: 100%;
@@ -19,6 +21,8 @@ const StyledSettings = styled.div`
 `;
 
 const Settings = () => {
+  const { theme } = useThemeContext();
+
   const SETTINGS_DATA = [
     {
       label: "Language",
@@ -29,7 +33,7 @@ const Settings = () => {
     {
       label: "Apperance",
       icon: <GoMoon size={20} />,
-      value: "Theme",
+      value: theme,
       onClick: () => null,
     },
   ];
