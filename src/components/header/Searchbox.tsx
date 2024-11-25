@@ -1,10 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { FaMicrophone } from "react-icons/fa";
+import { LuSearch } from "react-icons/lu";
 
 import { useAppContext } from "../../context/AppContext";
+import { IconStyle } from "../../styles/IconStyle";
 
 const StyledSearchbox = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 1rem;
 `;
@@ -38,7 +42,17 @@ const Searchbox = () => {
           placeholder={text.search}
           onChange={(e) => setSearchValue(e.target.value)}
         />
+        <IconStyle data-tooltip-id="search" data-tooltip-content={text.search}>
+          <LuSearch size={20} />
+        </IconStyle>
       </StyledSearchBar>
+      <IconStyle
+        data-tooltip-id="voiceSearch"
+        data-tooltip-content={text.voiceSearch}
+        $showBackground={true}
+      >
+        <FaMicrophone size={20} />
+      </IconStyle>
     </StyledSearchbox>
   );
 };
