@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import { Text } from "../../styles/TextStyle";
 
+interface ISettingRowProps {
+  label: string;
+  icon: JSX.Element;
+  value: string;
+  onClick: () => void;
+}
+
 const StyledSettingRow = styled.div`
   display: flex;
   align-items: center;
@@ -15,17 +22,9 @@ const StyledSettingRow = styled.div`
     cursor: pointer;
   }
 `;
-const SettingRow = ({
-  label,
-  icon,
-  value,
-}: {
-  label: string;
-  icon: JSX.Element;
-  value: string;
-}) => {
+const SettingRow = ({ label, icon, value, onClick }: ISettingRowProps) => {
   return (
-    <StyledSettingRow>
+    <StyledSettingRow onClick={onClick}>
       {icon}
       <Text>{`${label}: ${value}`}</Text>
     </StyledSettingRow>

@@ -21,27 +21,34 @@ const StyledSettings = styled.div`
 `;
 
 const Settings = () => {
-  const { theme } = useAppContext();
+  const { theme, language, text, toggleLanguage, toggleTheme } =
+    useAppContext();
 
   const SETTINGS_DATA = [
     {
-      label: "Language",
+      label: text.language,
       icon: <HiLanguage size={20} />,
-      value: "English",
-      onClick: () => null,
+      value: text[language === "english" ? "russian" : "english"],
+      onClick: () => toggleLanguage(),
     },
     {
-      label: "Apperance",
+      label: text.appreance,
       icon: <GoMoon size={20} />,
-      value: theme,
-      onClick: () => null,
+      value: text[theme === "dark" ? "light" : "dark"],
+      onClick: () => toggleTheme(),
     },
   ];
 
   return (
     <StyledSettings>
-      {SETTINGS_DATA.map(({ label, icon, value }) => (
-        <SettingRow key={label} label={label} icon={icon} value={value} />
+      {SETTINGS_DATA.map(({ label, icon, value, onClick }) => (
+        <SettingRow
+          key={label}
+          label={label}
+          icon={icon}
+          value={value}
+          onClick={onClick}
+        />
       ))}
     </StyledSettings>
   );

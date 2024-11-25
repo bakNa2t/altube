@@ -23,7 +23,7 @@ export const darkTheme: ITheme = {
   color_grey_3: "#4b5563",
   color_blue: "#3b82f6",
   color_auth: "#525252",
-  shadow_temp: "#0E0E0E",
+  shadow_temp: "#334155",
   color_white: "#fafafa",
   color_black: "#0c0a09",
   color_divider: "#475569",
