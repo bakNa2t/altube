@@ -32,7 +32,7 @@ const StyledSearchBar = styled.div`
 
 const Searchbox = () => {
   const [searchValue, setSearchValue] = useState("");
-  const { text } = useAppContext();
+  const { text, setSearchBarText } = useAppContext();
 
   return (
     <StyledSearchbox>
@@ -42,7 +42,11 @@ const Searchbox = () => {
           placeholder={text.search}
           onChange={(e) => setSearchValue(e.target.value)}
         />
-        <IconStyle data-tooltip-id="search" data-tooltip-content={text.search}>
+        <IconStyle
+          data-tooltip-id="search"
+          data-tooltip-content={text.search}
+          onClick={() => setSearchBarText(searchValue)}
+        >
           <LuSearch size={20} />
         </IconStyle>
       </StyledSearchBar>
