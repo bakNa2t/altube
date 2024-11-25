@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { FaRegUserCircle } from "react-icons/fa";
+
 import { Text } from "../../styles/TextStyle";
+
+import { useAppContext } from "../../context/AppContext";
 
 const StyledAuthBtn = styled.div`
   display: flex;
@@ -15,10 +18,12 @@ const StyledAuthBtn = styled.div`
 `;
 
 const AuthBtn = () => {
+  const { text } = useAppContext();
+
   return (
     <StyledAuthBtn>
       <FaRegUserCircle size={20} />
-      <Text className="auth">Sign in</Text>
+      <Text className="auth">{text.signIn}</Text>
     </StyledAuthBtn>
   );
 };
