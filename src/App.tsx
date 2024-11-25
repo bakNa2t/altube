@@ -1,14 +1,18 @@
 import styled, { ThemeProvider } from "styled-components";
 import { DefaultTheme } from "styled-components/dist/types";
 
-import GlobalStyles from "./styles/GlobalStyles";
+import Header from "./components/header/Header";
+import ToolTips from "./utils/ToolTips";
+
 import { THEMES } from "./styles/theme";
+import GlobalStyles from "./styles/GlobalStyles";
 import { useThemeContext } from "./context/ThemeContext";
 
 const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  /* color: ${({ theme }) => theme.text}; */
   background-color: ${(props) => props.theme.bgr};
 `;
 
@@ -18,8 +22,9 @@ function App() {
   return (
     <ThemeProvider theme={THEMES[theme] as DefaultTheme}>
       <GlobalStyles />
+      <ToolTips />
       <AppContainer>
-        <h1>Welcome to Altube</h1>
+        <Header />
       </AppContainer>
     </ThemeProvider>
   );
