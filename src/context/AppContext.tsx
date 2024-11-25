@@ -6,6 +6,7 @@ interface IAppContextVlaue {
   theme: "light" | "dark";
   language: "english" | "russian";
   toggleLanguage: () => void;
+  toggleTheme: () => void;
   text: ITranslations;
 }
 
@@ -16,8 +17,12 @@ interface IAppContextProps {
 const AppContext = createContext<IAppContextVlaue | null>(null);
 
 export const AppContextProvider = ({ children }: IAppContextProps) => {
-  const [theme /*, setTheme*/] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [language, setLanguage] = useState<"english" | "russian">("english");
+
+  const toggleTheme = () => {
+    setTheme((theme) => (theme === "light" ? "dark" : "light"));
+  };
 
   const toggleLanguage = () => {
     setLanguage((language) => (language === "english" ? "russian" : "english"));
@@ -26,8 +31,9 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const value = {
     theme,
     language,
-    toggleLanguage,
     text: LANGUAGE[language],
+    toggleLanguage,
+    toggleTheme,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
