@@ -6,8 +6,7 @@ const StyledSettingRow = styled.div`
   align-items: center;
   gap: 0.5rem;
   width: 100%;
-  height: 3rem;
-  font-size: 0.6rem;
+  height: 2.5rem;
   padding-left: 1rem;
   color: ${({ theme: { text } }) => text};
 

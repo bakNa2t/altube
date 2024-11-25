@@ -6,7 +6,7 @@ import ToolTips from "./utils/ToolTips";
 
 import { THEMES } from "./styles/theme";
 import GlobalStyles from "./styles/GlobalStyles";
-import { useThemeContext } from "./context/ThemeContext";
+import { useAppContext } from "./context/AppContext";
 
 const AppContainer = styled.div`
   width: 100vw;
@@ -17,7 +17,7 @@ const AppContainer = styled.div`
 `;
 
 function App() {
-  const { theme } = useThemeContext();
+  const { theme } = useAppContext();
 
   return (
     <ThemeProvider theme={THEMES[theme] as DefaultTheme}>

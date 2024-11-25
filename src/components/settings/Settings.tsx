@@ -4,7 +4,7 @@ import { GoMoon } from "react-icons/go";
 
 import SettingRow from "./SettingRow";
 
-import { useThemeContext } from "../../context/ThemeContext";
+import { useAppContext } from "../../context/AppContext";
 
 const StyledSettings = styled.div`
   position: absolute;
@@ -21,7 +21,7 @@ const StyledSettings = styled.div`
 `;
 
 const Settings = () => {
-  const { theme } = useThemeContext();
+  const { theme } = useAppContext();
 
   const SETTINGS_DATA = [
     {
