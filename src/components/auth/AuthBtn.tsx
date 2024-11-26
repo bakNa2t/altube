@@ -15,6 +15,10 @@ const StyledAuthBtn = styled.div`
   border-radius: 10rem;
   color: ${({ theme: { color_blue } }) => color_blue};
   border: 1px solid ${({ theme: { color_grey_1 } }) => color_grey_1};
+
+  &:hover {
+    background-color: ${({ theme: { color_grey_3 } }) => color_grey_3};
+  }
 `;
 
 const AuthBtn = () => {

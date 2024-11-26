@@ -10,7 +10,7 @@ const StyledHeader = styled.header`
   align-items: center;
   padding: 0 1rem;
   width: 100%;
-  height: 5.8vh;
+  height: 7vh;
   /* background-color: ${(props) => props.theme.color_blue}; */
 `;
 const Header = () => {
