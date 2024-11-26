@@ -40,7 +40,7 @@ const Searchbox = () => {
 
   const {
     // transcript,
-    // listening,
+    listening,
     // resetTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
@@ -69,6 +69,7 @@ const Searchbox = () => {
         data-tooltip-id="voiceSearch"
         data-tooltip-content={text.voiceSearch}
         $showBackground={true}
+        className={listening ? "listening" : ""}
         onClick={
           SpeechRecognition.startListening as MouseEventHandler<HTMLDivElement>
         }
