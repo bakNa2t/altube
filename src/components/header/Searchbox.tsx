@@ -1,7 +1,11 @@
-import { useState } from "react";
+import "regenerator-runtime/runtime";
+import { MouseEventHandler, useState } from "react";
 import styled from "styled-components";
 import { FaMicrophone } from "react-icons/fa";
 import { LuSearch } from "react-icons/lu";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 import { useAppContext } from "../../context/AppContext";
 import { IconStyle } from "../../styles/IconStyle";
@@ -34,6 +38,17 @@ const Searchbox = () => {
   const [searchValue, setSearchValue] = useState("");
   const { text, setSearchBarText } = useAppContext();
 
+  const {
+    // transcript,
+    // listening,
+    // resetTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
+
+  if (!browserSupportsSpeechRecognition) {
+    return <span>Browser doesn't support speech recognition.</span>;
+  }
+
   return (
     <StyledSearchbox>
       <StyledSearchBar>
@@ -54,6 +69,9 @@ const Searchbox = () => {
         data-tooltip-id="voiceSearch"
         data-tooltip-content={text.voiceSearch}
         $showBackground={true}
+        onClick={
+          SpeechRecognition.startListening as MouseEventHandler<HTMLDivElement>
+        }
       >
         <FaMicrophone size={20} />
       </IconStyle>
