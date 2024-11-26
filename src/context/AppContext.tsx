@@ -17,6 +17,8 @@ interface IAppContextVlaue {
   text: ITranslations;
   searchBarText: string;
   setSearchBarText: Dispatch<SetStateAction<string>>;
+  isSideMenuShort: boolean;
+  toggleSideMenuSortResize: () => void;
 }
 
 interface IAppContextProps {
@@ -29,6 +31,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [language, setLanguage] = useState<"english" | "russian">("english");
   const [searchBarText, setSearchBarText] = useState("");
+  const [isSideMenuShort, setIsSideMenuShort] = useState(false);
 
   const toggleTheme = () => {
     setTheme((theme) => (theme === "light" ? "dark" : "light"));
@@ -36,6 +39,10 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
 
   const toggleLanguage = () => {
     setLanguage((language) => (language === "english" ? "russian" : "english"));
+  };
+
+  const toggleSideMenuSortResize = () => {
+    setIsSideMenuShort((state) => !state);
   };
 
   const value = {
@@ -46,6 +53,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     toggleTheme,
     searchBarText,
     setSearchBarText,
+    isSideMenuShort,
+    toggleSideMenuSortResize,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
