@@ -4,6 +4,8 @@ import { SlMenu } from "react-icons/sl";
 import Logo from "./Logo";
 import { IconStyle } from "../../styles/IconStyle";
 
+import { useAppContext } from "../../context/AppContext";
+
 const StyledLeftbox = styled.div`
   display: flex;
   align-items: center;
@@ -11,9 +13,11 @@ const StyledLeftbox = styled.div`
 `;
 
 const Leftbox = () => {
+  const { toggleSideMenuShortResize } = useAppContext();
+
   return (
     <StyledLeftbox>
-      <IconStyle className="menu">
+      <IconStyle className="menu" onClick={() => toggleSideMenuShortResize()}>
         <SlMenu size={18} />
       </IconStyle>
       <Logo />
