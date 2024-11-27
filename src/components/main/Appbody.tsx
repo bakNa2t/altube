@@ -7,7 +7,7 @@ import { useAppContext } from "../../context/AppContext";
 const StyledAppbody = styled.main<{ $isSideMenuShort: boolean }>`
   display: grid;
   grid-template-columns: ${({ $isSideMenuShort }) =>
-    $isSideMenuShort ? "4.3rem 1fr" : "13.5rem 1fr"};
+    $isSideMenuShort ? "5.4rem 1fr" : "13.5rem 1fr"};
   gap: ${({ $isSideMenuShort }) => ($isSideMenuShort ? "1.5rem" : "3rem")};
   width: 100%;
   height: 94.2vh;

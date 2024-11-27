@@ -10,25 +10,29 @@ const StyledSidemenu = styled.div`
   width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-  background-color: ${({ theme: { color_black } }) => color_black};
+  padding: 0rem 0.5rem;
 `;
 
 const StyledSideMenuRow = styled.div`
   display: flex;
   border-radius: 0.5rem;
   color: ${({ theme: { text } }) => text};
-  background-color: ${({ theme: { color_grey_2 } }) => color_grey_2};
 
   &.short {
     font-size: 1.4rem;
     flex-direction: column;
     align-items: center;
     gap: 0.4rem;
-    padding: 1rem 0;
+    padding: 1rem 0rem;
 
     p {
-      font-size: 0.8rem;
+      font-size: 8px;
     }
+  }
+
+  &:hover {
+    background-color: ${({ theme: { color_grey_2 } }) => color_grey_2};
+    cursor: pointer;
   }
 `;
 
