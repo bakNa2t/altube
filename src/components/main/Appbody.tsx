@@ -1,4 +1,7 @@
 import styled from "styled-components";
+
+import Sidemenu from "../sidemenu/Sidemenu";
+
 import { useAppContext } from "../../context/AppContext";
 
 const StyledAppbody = styled.main<{ $isSideMenuShort: boolean }>`
@@ -13,7 +16,11 @@ const StyledAppbody = styled.main<{ $isSideMenuShort: boolean }>`
 const Appbody = () => {
   const { isSideMenuShort } = useAppContext();
 
-  return <StyledAppbody $isSideMenuShort={isSideMenuShort}></StyledAppbody>;
+  return (
+    <StyledAppbody $isSideMenuShort={isSideMenuShort}>
+      <Sidemenu />
+    </StyledAppbody>
+  );
 };
 
 export default Appbody;
