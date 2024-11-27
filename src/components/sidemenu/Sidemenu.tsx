@@ -33,10 +33,12 @@ const StyledSideMenuFullRow = styled.div`
   }
 `;
 
-const StyledSideMenuShortRow = styled.div`
+const StyledSideMenuShortRow = styled.div<{ active: boolean }>`
   display: flex;
   border-radius: 0.5rem;
   color: ${({ theme: { text } }) => text};
+  background-color: ${({ active, theme: { color_grey_2 } }) =>
+    active ? color_grey_2 : null};
 
   &.short {
     font-size: 1.4rem;
@@ -65,12 +67,19 @@ const StyledSideMenuShortRow = styled.div`
 `;
 
 const Sidemenu = () => {
-  const { isSideMenuShort, text } = useAppContext();
+  const { isSideMenuShort, text, activeMenuLink } = useAppContext();
 
   return isSideMenuShort ? (
     <StyledSidemenu>
       {MENU_ITEMS_SHORT.map(({ name, icon }) => (
-        <StyledSideMenuShortRow className="short" key={name}>
+        <StyledSideMenuShortRow
+          className="short"
+          key={name}
+          active={
+            activeMenuLink.toLowerCase() ===
+            text[name as keyof ITranslations].toLowerCase()
+          }
+        >
           {icon}
           <Text>{text[name as keyof ITranslations]}</Text>
         </StyledSideMenuShortRow>
@@ -87,7 +96,14 @@ const Sidemenu = () => {
               </Text>
             )}
             {list.map(({ name, icon }) => (
-              <StyledSideMenuShortRow className="full" key={name}>
+              <StyledSideMenuShortRow
+                className="full"
+                key={name}
+                active={
+                  activeMenuLink.toLowerCase() ===
+                  text[name as keyof ITranslations].toLowerCase()
+                }
+              >
                 {icon}
                 <Text>{text[name as keyof ITranslations]}</Text>
               </StyledSideMenuShortRow>
