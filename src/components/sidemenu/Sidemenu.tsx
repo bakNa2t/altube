@@ -5,6 +5,7 @@ import { Text } from "../../styles/TextStyle";
 import { useAppContext } from "../../context/AppContext";
 import { MENU_ITEMS_FULL, MENU_ITEMS_SHORT } from "../../utils/MenuItems";
 import { ITranslations } from "../../utils/translations";
+import AuthBtn from "../auth/AuthBtn";
 
 const StyledSidemenu = styled.div`
   width: 100%;
@@ -13,7 +14,7 @@ const StyledSidemenu = styled.div`
   padding: 0rem 0.5rem;
 
   .title {
-    font-size: 0.85rem;
+    font-size: 1.1rem;
     margin: 0 0 0.5rem 1.7rem;
     font-weight: bold;
   }
@@ -22,19 +23,20 @@ const StyledSidemenu = styled.div`
 const StyledSideMenuFullRow = styled.div`
   padding: 0.5rem 0;
   border-bottom: 1px solid ${({ theme: { color_divider } }) => color_divider};
+
+  &.text {
+    font-size: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.1rem 0 1.1rem 1.5rem;
+  }
 `;
 
 const StyledSideMenuShortRow = styled.div`
   display: flex;
   border-radius: 0.5rem;
   color: ${({ theme: { text } }) => text};
-
-  .text {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1.1rem 0 1.1rem 1.5rem;
-  }
 
   &.short {
     font-size: 1.4rem;
@@ -77,17 +79,27 @@ const Sidemenu = () => {
   ) : (
     <StyledSidemenu>
       {MENU_ITEMS_FULL.map(({ title, list }, index) => (
-        <StyledSideMenuFullRow key={index}>
-          {title && (
-            <Text className="title">{text[title as keyof ITranslations]}</Text>
+        <>
+          <StyledSideMenuFullRow key={index}>
+            {title && (
+              <Text className="title">
+                {text[title as keyof ITranslations]}
+              </Text>
+            )}
+            {list.map(({ name, icon }) => (
+              <StyledSideMenuShortRow className="full" key={name}>
+                {icon}
+                <Text>{text[name as keyof ITranslations]}</Text>
+              </StyledSideMenuShortRow>
+            ))}
+          </StyledSideMenuFullRow>
+          {index === 1 && (
+            <StyledSideMenuFullRow key={index} className="text">
+              <Text>{text.signInMenuText}</Text>
+              <AuthBtn />
+            </StyledSideMenuFullRow>
           )}
-          {list.map(({ name, icon }) => (
-            <StyledSideMenuShortRow className="full" key={name}>
-              {icon}
-              <Text>{text[name as keyof ITranslations]}</Text>
-            </StyledSideMenuShortRow>
-          ))}
-        </StyledSideMenuFullRow>
+        </>
       ))}
     </StyledSidemenu>
   );
