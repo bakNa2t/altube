@@ -41,14 +41,14 @@ export interface ITranslations {
   flowers: string;
   soccer: string;
   tennis: string;
-  tesla: string;
+  web: string;
   basketball: string;
   housing: string;
   finance: string;
   stocks: string;
   technology: string;
-  apple: string;
-  fasion: string;
+  crypto: string;
+  nfl: string;
   showMore: string;
   showLess: string;
   save: string;
@@ -101,14 +101,14 @@ const english: ITranslations = {
   flowers: "Flowers",
   soccer: "Soccer",
   tennis: "Tennis",
-  tesla: "Tesla Inc",
+  web: "Web",
   basketball: "Basketball",
   housing: "Housing",
   finance: "Finance",
   stocks: "Stocks",
   technology: "Technology",
-  apple: "Apple Inc",
-  fasion: "Fasion",
+  crypto: "Crypto",
+  nfl: "NFL",
   showMore: "Show more",
   showLess: "Show less",
   save: "Save",
@@ -162,14 +162,14 @@ const russian: ITranslations = {
   flowers: "Цветы",
   soccer: "Футбол",
   tennis: "Теннис",
-  tesla: "Tesla Inc",
+  web: "Вэб",
   basketball: "Баскетбол",
   housing: "Жилье",
   finance: "Финансы",
   stocks: "Акции",
   technology: "Технологии",
-  apple: "Apple Inc",
-  fasion: "Фэшн",
+  crypto: "Криптовалюта",
+  nfl: "НФЛ",
   showMore: "Показать больше",
   showLess: "Показать меньше",
   save: "Сохранить",
