@@ -10,9 +10,9 @@ const StyledCategories = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 0.5rem;
-  padding: 0.6rem 0;
+  padding-bottom: 0.6rem;
   padding-right: 10rem;
   z-index: 100;
 `;
@@ -40,21 +40,29 @@ const CategoriesItem = styled.div<{ active: boolean }>`
   }
 `;
 
+const CategoriesWrapper = styled.div`
+  width: 100%;
+  overflow-x: scroll;
+  margin-bottom: -20px;
+`;
+
 const Categories = () => {
   const { text, activeCategory, setActiveCategory } = useAppContext();
 
   return (
-    <StyledCategories>
-      {CATEGORIES.map((name, index) => (
-        <CategoriesItem
-          active={name.toLowerCase() === activeCategory.toLowerCase()}
-          key={index}
-          onClick={() => setActiveCategory(name)}
-        >
-          <Text>{text[name as keyof ITranslations]}</Text>
-        </CategoriesItem>
-      ))}
-    </StyledCategories>
+    <CategoriesWrapper>
+      <StyledCategories>
+        {CATEGORIES.map((name, index) => (
+          <CategoriesItem
+            active={name.toLowerCase() === activeCategory.toLowerCase()}
+            key={index}
+            onClick={() => setActiveCategory(name)}
+          >
+            <Text>{text[name as keyof ITranslations]}</Text>
+          </CategoriesItem>
+        ))}
+      </StyledCategories>
+    </CategoriesWrapper>
   );
 };
 
