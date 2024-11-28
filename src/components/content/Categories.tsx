@@ -17,7 +17,7 @@ const StyledCategories = styled.div`
   z-index: 100;
 `;
 
-const CategoriesItem = styled.div`
+const CategoriesItem = styled.div<{ active: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,25 +25,32 @@ const CategoriesItem = styled.div`
   padding: 0.5rem 0.8rem;
   border-radius: 0.5rem;
   white-space: nowrap;
-  background-color: ${({ theme: { color_divider, text } }) => color_divider};
+  background-color: ${({ theme: { color_divider, text }, active }) =>
+    active ? text : color_divider};
 
   p {
-    color: ${({ theme: { text } }) => text};
+    color: ${({ theme: { bgr, text }, active }) =>
+      active ? bgr : text} !important;
   }
 
   &:hover {
-    background-color: ${({ theme: { bgr, color_grey_1 } }) => color_grey_1};
-    cursor: pointer;
+    background-color: ${({ theme: { color_grey_1 }, active }) =>
+      active ? null : color_grey_1};
+    cursor: ${({ active }) => (active ? "not-allowed" : "pointer")};
   }
 `;
 
 const Categories = () => {
-  const { text } = useAppContext();
+  const { text, activeCategory, setActiveCategory } = useAppContext();
 
   return (
     <StyledCategories>
       {CATEGORIES.map((name, index) => (
-        <CategoriesItem key={index}>
+        <CategoriesItem
+          active={name.toLowerCase() === activeCategory.toLowerCase()}
+          key={index}
+          onClick={() => setActiveCategory(name)}
+        >
           <Text>{text[name as keyof ITranslations]}</Text>
         </CategoriesItem>
       ))}
