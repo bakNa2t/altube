@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { Video, Videos } from "pexels";
 
 import { ITranslations, LANGUAGE } from "../utils/translations";
 import { client } from "../utils/pexeles/config";
@@ -24,6 +25,7 @@ interface IAppContextVlaue {
   activeMenuLink: string;
   activeCategory: string;
   setActiveCategory: Dispatch<SetStateAction<string>>;
+  dataVideos: Video[];
 }
 
 interface IAppContextProps {
@@ -39,6 +41,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [isSideMenuShort, setIsSideMenuShort] = useState(false);
   const [activeMenuLink /*, setActiveMenuLink*/] = useState("home");
   const [activeCategory, setActiveCategory] = useState("Sports");
+  const [dataVideos, setDataVideos] = useState<Video[]>([]);
 
   const toggleTheme = () => {
     setTheme((theme) => (theme === "light" ? "dark" : "light"));
@@ -73,6 +76,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     activeMenuLink,
     activeCategory,
     setActiveCategory,
+    dataVideos,
   };
 
   const fetchVideos = async (query: string) => {
@@ -81,7 +85,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
 
       const response = await client.videos.search({ query, per_page: 44 });
 
-      console.log(response);
+      setDataVideos((response as Videos).videos);
+      // console.log((response as Videos).videos);
     } catch (error) {
       console.error(error);
     }
