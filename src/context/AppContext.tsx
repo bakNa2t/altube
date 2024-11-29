@@ -4,10 +4,12 @@ import {
   ReactNode,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
 import { ITranslations, LANGUAGE } from "../utils/translations";
+import { client } from "../utils/pexeles/config";
 
 interface IAppContextVlaue {
   theme: "light" | "dark";
@@ -36,7 +38,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [searchBarText, setSearchBarText] = useState("");
   const [isSideMenuShort, setIsSideMenuShort] = useState(false);
   const [activeMenuLink /*, setActiveMenuLink*/] = useState("home");
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState("Sports");
 
   const toggleTheme = () => {
     setTheme((theme) => (theme === "light" ? "dark" : "light"));
@@ -49,6 +51,14 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const toggleSideMenuShortResize = () => {
     setIsSideMenuShort((state) => !state);
   };
+
+  useEffect(() => {
+    fetchVideos(activeCategory);
+  }, [activeCategory]);
+
+  useEffect(() => {
+    fetchVideos(searchBarText);
+  }, [searchBarText]);
 
   const value = {
     theme,
@@ -63,6 +73,18 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     activeMenuLink,
     activeCategory,
     setActiveCategory,
+  };
+
+  const fetchVideos = async (query: string) => {
+    try {
+      if (!query) return Error("Query is empty");
+
+      const response = await client.videos.search({ query, per_page: 44 });
+
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
