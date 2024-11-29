@@ -26,6 +26,7 @@ interface IAppContextVlaue {
   activeCategory: string;
   setActiveCategory: Dispatch<SetStateAction<string>>;
   dataVideos: Video[];
+  isFetchingVideos: boolean;
 }
 
 interface IAppContextProps {
@@ -42,6 +43,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [activeMenuLink /*, setActiveMenuLink*/] = useState("home");
   const [activeCategory, setActiveCategory] = useState("Sports");
   const [dataVideos, setDataVideos] = useState<Video[]>([]);
+  const [isFetchingVideos, setIsFetcingVideos] = useState(false);
 
   const toggleTheme = () => {
     setTheme((theme) => (theme === "light" ? "dark" : "light"));
@@ -77,19 +79,35 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     activeCategory,
     setActiveCategory,
     dataVideos,
+    isFetchingVideos,
   };
 
   const fetchVideos = async (query: string) => {
+    setIsFetcingVideos(true);
+
     try {
       if (!query) return Error("Query is empty");
 
-      const response = await client.videos.search({ query, per_page: 44 });
+      // const response = await fetch(
+      //   `https://api.pexels.com/v1/search?query=${query}`,
+      //   {
+      //     method: "GET",
+      //     headers: {
+      //       Authorization: pexelsConfig.api_key,
+      //       "Content-Type": "application/json",
+      //     },
+      //     mode: "no-cors",
+      //   }
+      // );
 
+      const response = await client.videos.search({ query, per_page: 44 });
       setDataVideos((response as Videos).videos);
       // console.log((response as Videos).videos);
     } catch (error) {
       console.error(error);
     }
+
+    setIsFetcingVideos(false);
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
