@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import Sidemenu from "../sidemenu/Sidemenu";
+import Content from "../content/Content";
 
 import { useAppContext } from "../../context/AppContext";
 
@@ -19,6 +20,7 @@ const Appbody = () => {
   return (
     <StyledAppbody $isSideMenuShort={isSideMenuShort}>
       <Sidemenu />
+      <Content />
     </StyledAppbody>
   );
 };
