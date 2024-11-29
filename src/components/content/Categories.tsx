@@ -43,6 +43,7 @@ const CategoriesItem = styled.div<{ active: boolean }>`
 const CategoriesWrapper = styled.div`
   width: 100%;
   overflow-x: scroll;
+  overflow-y: hidden;
   margin-bottom: -20px;
 `;
 
