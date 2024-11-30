@@ -2,6 +2,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { DefaultTheme } from "styled-components/dist/types";
 
 import Header from "./components/header/Header";
+import Appbody from "./components/main/Appbody";
 import ToolTips from "./utils/ToolTips";
 
 import { THEMES } from "./styles/theme";
@@ -25,6 +26,7 @@ function App() {
       <ToolTips />
       <AppContainer>
         <Header />
+        <Appbody />
       </AppContainer>
     </ThemeProvider>
   );
