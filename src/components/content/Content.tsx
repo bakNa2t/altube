@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Categories from "./Categories";
 
 import { useAppContext } from "../../context/AppContext";
+import VideosBoard from "./VideosBoard";
 
 const StyledContent = styled.section`
   position: relative;
@@ -27,8 +28,9 @@ const Content = () => {
 
   return (
     <StyledContent>
-      <Categories />
       {isFetchingVideos && <Backdrop />}
+      <Categories />
+      <VideosBoard />
     </StyledContent>
   );
 };
