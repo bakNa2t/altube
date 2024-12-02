@@ -9,18 +9,7 @@ import {
 } from "react";
 
 import { ITranslations, LANGUAGE } from "../utils/translations";
-import { rapidApiKey } from "../utils/rapid-api/config";
-
-const BASE_URL = "https://youtube-v31.p.rapidapi.com";
-const HOST = "youtube-v31.p.rapidapi.com";
-
-const options = {
-  method: "GET",
-  headers: {
-    "x-rapidapi-key": rapidApiKey,
-    "x-rapidapi-host": HOST,
-  },
-};
+import { BASE_URL, options } from "../utils/rapid-api/config";
 
 interface IAppContextVlaue {
   theme: "light" | "dark";
@@ -97,19 +86,18 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   };
 
   const fetchFromApi = async (url?: string) => {
-    setIsFetcingVideos(true);
-
     try {
+      setIsFetcingVideos(true);
       const response = await fetch(`${BASE_URL}/${url}`, options);
       const result = await response.text();
       const data = JSON.parse(result);
 
       setDataVideos(data.items);
+      setIsFetcingVideos(false);
     } catch (error) {
       console.error(error);
+      setIsFetcingVideos(false);
     }
-
-    setIsFetcingVideos(false);
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
