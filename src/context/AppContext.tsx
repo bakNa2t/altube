@@ -7,10 +7,20 @@ import {
   useEffect,
   useState,
 } from "react";
-import { Video, Videos } from "pexels";
 
 import { ITranslations, LANGUAGE } from "../utils/translations";
-import { client } from "../utils/pexeles/config";
+import { rapidApiKey } from "../utils/rapid-api/config";
+
+const BASE_URL = "https://youtube-v31.p.rapidapi.com";
+const HOST = "youtube-v31.p.rapidapi.com";
+
+const options = {
+  method: "GET",
+  headers: {
+    "x-rapidapi-key": rapidApiKey,
+    "x-rapidapi-host": HOST,
+  },
+};
 
 interface IAppContextVlaue {
   theme: "light" | "dark";
@@ -25,7 +35,7 @@ interface IAppContextVlaue {
   activeMenuLink: string;
   activeCategory: string;
   setActiveCategory: Dispatch<SetStateAction<string>>;
-  dataVideos: Video[];
+  dataVideos: string[];
   isFetchingVideos: boolean;
 }
 
@@ -42,7 +52,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [isSideMenuShort, setIsSideMenuShort] = useState(false);
   const [activeMenuLink /*, setActiveMenuLink*/] = useState("home");
   const [activeCategory, setActiveCategory] = useState("Sports");
-  const [dataVideos, setDataVideos] = useState<Video[]>([]);
+  const [dataVideos, setDataVideos] = useState<string[]>([]);
   const [isFetchingVideos, setIsFetcingVideos] = useState(false);
 
   const toggleTheme = () => {
@@ -58,11 +68,15 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   };
 
   useEffect(() => {
-    fetchVideos(activeCategory);
+    fetchFromApi(
+      `search?q=${activeCategory}&part=snippet%2Cid&regionCode=US&maxResults=50&order=date`
+    );
   }, [activeCategory]);
 
   useEffect(() => {
-    fetchVideos(searchBarText);
+    fetchFromApi(
+      `search?q=${searchBarText}&part=snippet%2Cid&regionCode=US&maxResults=50&order=date`
+    );
   }, [searchBarText]);
 
   const value = {
@@ -82,27 +96,15 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     isFetchingVideos,
   };
 
-  const fetchVideos = async (query: string) => {
+  const fetchFromApi = async (url?: string) => {
     setIsFetcingVideos(true);
 
     try {
-      if (!query) return Error("Query is empty");
+      const response = await fetch(`${BASE_URL}/${url}`, options);
+      const result = await response.text();
+      const data = JSON.parse(result);
 
-      // const response = await fetch(
-      //   `https://api.pexels.com/v1/search?query=${query}`,
-      //   {
-      //     method: "GET",
-      //     headers: {
-      //       Authorization: pexelsConfig.api_key,
-      //       "Content-Type": "application/json",
-      //     },
-      //     mode: "no-cors",
-      //   }
-      // );
-
-      const response = await client.videos.search({ query, per_page: 44 });
-      setDataVideos((response as Videos).videos);
-      // console.log((response as Videos).videos);
+      setDataVideos(data.items);
     } catch (error) {
       console.error(error);
     }
