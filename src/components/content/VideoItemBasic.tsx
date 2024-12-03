@@ -9,7 +9,6 @@ const StyledVideoItemBasic = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 10rem;
   gap: 0.8rem;
 
   &:hover {
@@ -34,8 +33,28 @@ const VideoItemThumbnail = styled.div<{ $isSideMenuShort?: boolean }>`
   ${({ $isSideMenuShort }) =>
     $isSideMenuShort &&
     css`
-      height: 10rem;
+      height: 14rem;
     `};
+`;
+
+const VideoItemBasicDesc = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2.3rem 1fr;
+  gap: 0.8rem;
+`;
+
+const VideoProfileImage = styled.div`
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 1000rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+  }
 `;
 
 interface IVideoItemBasicProps {
@@ -46,6 +65,8 @@ const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
   const [playPreviewVideo, setPlayPreviewVideo] = useState(false);
 
   const { isSideMenuShort } = useAppContext();
+
+  console.log(dataVideos);
 
   return (
     <StyledVideoItemBasic
@@ -68,6 +89,11 @@ const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
           <img src={dataVideos.snippet.thumbnails.medium.url} alt="thmabnail" />
         )}
       </VideoItemThumbnail>
+      <VideoItemBasicDesc>
+        <VideoProfileImage>
+          <img src={dataVideos.snippet.thumbnails.default.url} alt="avatar" />
+        </VideoProfileImage>
+      </VideoItemBasicDesc>
     </StyledVideoItemBasic>
   );
 };
