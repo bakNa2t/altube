@@ -1,4 +1,9 @@
+import React from "react";
 import styled from "styled-components";
+
+interface IVideosThumbnailsContainerProps {
+  children: React.ReactNode;
+}
 
 const SryledVideosThumbnailsContainer = styled.div`
   display: grid;
@@ -7,10 +12,12 @@ const SryledVideosThumbnailsContainer = styled.div`
   row-gap: 3rem;
 `;
 
-const VideosThumbnailsContainer = () => {
+const VideosThumbnailsContainer: React.FC<IVideosThumbnailsContainerProps> = ({
+  children,
+}) => {
   return (
     <SryledVideosThumbnailsContainer>
-      VideosThumbnailsContainer
+      {children}
     </SryledVideosThumbnailsContainer>
   );
 };
