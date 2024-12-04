@@ -2,6 +2,9 @@ import { useState } from "react";
 import ReactPlayer from "react-player";
 import styled, { css } from "styled-components";
 import { useAppContext } from "../../context/AppContext";
+import { Text } from "../../styles/TextStyle";
+
+const TITLE_MAX_LENGTH = 50;
 
 const url = "https://www.youtube.com/watch?v=";
 
@@ -57,6 +60,11 @@ const VideoProfileImage = styled.div`
   }
 `;
 
+const VideoItemBasicTitle = styled.div`
+  margin-top: 0.3rem;
+  color: ${({ theme: { text } }) => text};
+`;
+
 interface IVideoItemBasicProps {
   dataVideos: string;
 }
@@ -67,6 +75,7 @@ const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
   const { isSideMenuShort } = useAppContext();
 
   console.log(dataVideos);
+  const videoTitle = dataVideos.snippet.title;
 
   return (
     <StyledVideoItemBasic
@@ -93,6 +102,12 @@ const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
         <VideoProfileImage>
           <img src={dataVideos.snippet.thumbnails.default.url} alt="avatar" />
         </VideoProfileImage>
+        <VideoItemBasicTitle>
+          <Text>
+            {videoTitle.slice(0, TITLE_MAX_LENGTH)}
+            {videoTitle.length > TITLE_MAX_LENGTH && "..."}
+          </Text>
+        </VideoItemBasicTitle>
       </VideoItemBasicDesc>
     </StyledVideoItemBasic>
   );
