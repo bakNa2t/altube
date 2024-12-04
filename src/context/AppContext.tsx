@@ -10,6 +10,7 @@ import {
 
 import { ITranslations, LANGUAGE } from "../utils/translations";
 import { BASE_URL, options } from "../utils/rapid-api/config";
+import { VideoProps } from "../interfaces/videos";
 
 interface IAppContextVlaue {
   theme: "light" | "dark";
@@ -24,7 +25,7 @@ interface IAppContextVlaue {
   activeMenuLink: string;
   activeCategory: string;
   setActiveCategory: Dispatch<SetStateAction<string>>;
-  dataVideos: string[];
+  dataVideos: VideoProps[];
   isFetchingVideos: boolean;
 }
 
@@ -41,7 +42,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [isSideMenuShort, setIsSideMenuShort] = useState(false);
   const [activeMenuLink /*, setActiveMenuLink*/] = useState("home");
   const [activeCategory, setActiveCategory] = useState("Sports");
-  const [dataVideos, setDataVideos] = useState<string[]>([]);
+  const [dataVideos, setDataVideos] = useState<VideoProps[]>([]);
   const [isFetchingVideos, setIsFetcingVideos] = useState(false);
 
   const toggleTheme = () => {
