@@ -5,6 +5,7 @@ import { Text } from "../../styles/TextStyle";
 
 import { VideoProps } from "../../interfaces/videos";
 import { useAppContext } from "../../context/AppContext";
+import { useState } from "react";
 
 interface IVideoShortsProps {
   dataVideos: VideoProps[];
@@ -26,7 +27,40 @@ const VideoShortsHeading = styled.div`
   }
 `;
 
+const VideoShortsDropContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  border-top: 1px solid ${({ theme: { color_divider } }) => color_divider};
+  margin-top: 2.5rem;
+  margin-bottom: 0.5rem;
+`;
+
+const VideoShortsDropButton = styled.button`
+  width: 23.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0rem;
+  border-radius: 100rem;
+  transform: translateY(-50%);
+  background-color: ${({ theme: { bgr } }) => bgr};
+  border: 1px solid ${({ theme: { color_divider } }) => color_divider};
+
+  &:hover {
+    background-color: ${({ theme: { color_grey_3 } }) => color_grey_3};
+    cursor: pointer;
+  }
+
+  .icon {
+    color: ${({ theme: { text } }) => text};
+  }
+`;
+
 const VideoShorts = ({ dataVideos }: IVideoShortsProps) => {
+  const [showShorts, setShowShorts] = useState(false);
+
   const { text } = useAppContext();
 
   return (
@@ -35,6 +69,11 @@ const VideoShorts = ({ dataVideos }: IVideoShortsProps) => {
         <SiYoutubeshorts size={25} color="purple" />
         <Text>{text.shorts}</Text>
       </VideoShortsHeading>
+      <VideoShortsDropContainer>
+        <VideoShortsDropButton>
+          <Text>{showShorts ? text.showMore : text.showLess}</Text>
+        </VideoShortsDropButton>
+      </VideoShortsDropContainer>
     </StyledVideoShorts>
   );
 };
