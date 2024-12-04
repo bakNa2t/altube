@@ -68,6 +68,12 @@ const VideoItemBasicTitle = styled.div`
     font-size: 1rem;
     font-weight: 600;
   }
+
+  .videoChannel {
+    font-size: 0.8rem;
+    margin: 0.5rem 0 0.2rem 0;
+    color: ${({ theme: { color_grey_1 } }) => color_grey_1};
+  }
 `;
 
 interface IVideoItemBasicProps {
@@ -78,6 +84,8 @@ const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
   const [playPreviewVideo, setPlayPreviewVideo] = useState(false);
 
   const { isSideMenuShort } = useAppContext();
+
+  console.log(dataVideos);
 
   const { id, snippet } = dataVideos;
 
@@ -113,6 +121,7 @@ const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
             {videoTitle.slice(0, TITLE_MAX_LENGTH)}
             {videoTitle.length > TITLE_MAX_LENGTH && "..."}
           </Text>
+          <Text className="videoChannel">{snippet.channelTitle}</Text>
         </VideoItemBasicTitle>
       </VideoItemBasicDesc>
     </StyledVideoItemBasic>
