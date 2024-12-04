@@ -3,6 +3,7 @@ import ReactPlayer from "react-player";
 import styled, { css } from "styled-components";
 import { useAppContext } from "../../context/AppContext";
 import { Text } from "../../styles/TextStyle";
+import { VideoProps } from "../../interfaces/videos";
 
 const TITLE_MAX_LENGTH = 50;
 
@@ -66,7 +67,7 @@ const VideoItemBasicTitle = styled.div`
 `;
 
 interface IVideoItemBasicProps {
-  dataVideos: string;
+  dataVideos: VideoProps;
 }
 
 const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
@@ -74,8 +75,9 @@ const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
 
   const { isSideMenuShort } = useAppContext();
 
-  console.log(dataVideos);
-  const videoTitle = dataVideos.snippet.title;
+  const { id, snippet } = dataVideos;
+
+  const videoTitle = snippet.title;
 
   return (
     <StyledVideoItemBasic
@@ -91,16 +93,16 @@ const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
             volume={0}
             muted={false}
             playing={playPreviewVideo}
-            url={`${url}${dataVideos.id.videoId}`}
+            url={`${url}${id.videoId}`}
             style={{ width: "100%", height: "100%" }}
           />
         ) : (
-          <img src={dataVideos.snippet.thumbnails.medium.url} alt="thmabnail" />
+          <img src={snippet.thumbnails.medium.url} alt="thmabnail" />
         )}
       </VideoItemThumbnail>
       <VideoItemBasicDesc>
         <VideoProfileImage>
-          <img src={dataVideos.snippet.thumbnails.default.url} alt="avatar" />
+          <img src={snippet.thumbnails.default.url} alt="avatar" />
         </VideoProfileImage>
         <VideoItemBasicTitle>
           <Text>
