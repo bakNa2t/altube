@@ -63,7 +63,11 @@ const VideoProfileImage = styled.div`
 
 const VideoItemBasicTitle = styled.div`
   margin-top: 0.3rem;
-  color: ${({ theme: { text } }) => text};
+
+  .videoTitle {
+    font-size: 1rem;
+    font-weight: 600;
+  }
 `;
 
 interface IVideoItemBasicProps {
@@ -105,7 +109,7 @@ const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
           <img src={snippet.thumbnails.default.url} alt="avatar" />
         </VideoProfileImage>
         <VideoItemBasicTitle>
-          <Text>
+          <Text className="videoTitle">
             {videoTitle.slice(0, TITLE_MAX_LENGTH)}
             {videoTitle.length > TITLE_MAX_LENGTH && "..."}
           </Text>
