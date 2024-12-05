@@ -28,6 +28,15 @@ const VideoShortsHeading = styled.div`
   }
 `;
 
+const VideoShortsContainer = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  column-gap: 1rem;
+  row-gap: 1rem;
+  margin-top: 1.5rem;
+`;
+
 const VideoShortsDropContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -64,12 +73,21 @@ const VideoShorts = ({ dataVideos }: IVideoShortsProps) => {
 
   const { text } = useAppContext();
 
+  const videoShortsList = showShorts
+    ? dataVideos.slice(0, dataVideos.length / 2)
+    : dataVideos;
+
   return (
     <StyledVideoShorts>
       <VideoShortsHeading>
         <SiYoutubeshorts size={25} color="purple" />
         <Text>{text.shorts}</Text>
       </VideoShortsHeading>
+      <VideoShortsContainer>
+        {videoShortsList.map(({ id, snippet }, index) => (
+          <div key={index}>Short {id.videoId}</div>
+        ))}
+      </VideoShortsContainer>
       <VideoShortsDropContainer>
         <VideoShortsDropButton onClick={() => setShowShorts(!showShorts)}>
           <Text>{showShorts ? text.showMore : text.showLess}</Text>
