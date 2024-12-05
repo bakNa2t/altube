@@ -1,11 +1,12 @@
-import styled from "styled-components";
+import { useState } from "react";
 import { SiYoutubeshorts } from "react-icons/si";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import styled from "styled-components";
 
 import { Text } from "../../styles/TextStyle";
 
 import { VideoProps } from "../../interfaces/videos";
 import { useAppContext } from "../../context/AppContext";
-import { useState } from "react";
 
 interface IVideoShortsProps {
   dataVideos: VideoProps[];
@@ -59,7 +60,7 @@ const VideoShortsDropButton = styled.button`
 `;
 
 const VideoShorts = ({ dataVideos }: IVideoShortsProps) => {
-  const [showShorts, setShowShorts] = useState(false);
+  const [showShorts, setShowShorts] = useState(true);
 
   const { text } = useAppContext();
 
@@ -70,8 +71,13 @@ const VideoShorts = ({ dataVideos }: IVideoShortsProps) => {
         <Text>{text.shorts}</Text>
       </VideoShortsHeading>
       <VideoShortsDropContainer>
-        <VideoShortsDropButton>
+        <VideoShortsDropButton onClick={() => setShowShorts(!showShorts)}>
           <Text>{showShorts ? text.showMore : text.showLess}</Text>
+          {showShorts ? (
+            <IoIosArrowDown className="icon" size={20} />
+          ) : (
+            <IoIosArrowUp className="icon" size={20} />
+          )}
         </VideoShortsDropButton>
       </VideoShortsDropContainer>
     </StyledVideoShorts>
