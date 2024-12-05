@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import VideosThumbnailsContainer from "./VideosThumbnailsContainer";
 import VideoItemBasic from "./VideoItemBasic";
+import VideoShorts from "./VideoShorts";
 
 import { useAppContext } from "../../context/AppContext";
 
@@ -14,7 +15,7 @@ const VideosBoard = () => {
   const { dataVideos } = useAppContext();
 
   const UP_VIDEO_BLOCK = dataVideos.slice(0, 8);
-  // const MIDDLE_VIDEO_BLOCK = dataVideos.slice(8, 20);
+  const SHORTS_VIDEO_BLOCK = dataVideos.slice(8, 20);
   // const DOWN_VIDEO_BLOCK = dataVideos.slice(20, 28);
 
   return (
@@ -24,6 +25,7 @@ const VideosBoard = () => {
           <VideoItemBasic dataVideos={video} key={index}></VideoItemBasic>
         ))}
       </VideosThumbnailsContainer>
+      <VideoShorts dataVideos={SHORTS_VIDEO_BLOCK} />
     </StyledVideosBoard>
   );
 };
