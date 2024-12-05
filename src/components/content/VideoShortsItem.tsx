@@ -1,7 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
+import ReactPlayer from "react-player";
 
 import { useAppContext } from "../../context/AppContext";
+import { VideoProps } from "../../interfaces/videos";
+import { Text } from "../../styles/TextStyle";
+
+const TITLE_MAX_LENGTH = 50;
+const url = "https://www.youtube.com/watch?v=";
 
 const StyledVideoShortsItem = styled.div`
   display: flex;
@@ -26,7 +32,25 @@ const StyledVideoShortsItem = styled.div`
   }
 `;
 
-const VideoShortsItem = () => {
+const VideoShortsItemThumbnail = styled.div<{ $isSideMenuShort?: boolean }>`
+  width: 100%;
+  height: 22rem;
+  border-radius: 1rem;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+  }
+`;
+
+interface IVideoShortsItemProps {
+  dataVideos: VideoProps;
+}
+
+const VideoShortsItem = ({ dataVideos }: IVideoShortsItemProps) => {
   const [playPreviewVideo, setPlayPreviewVideo] = useState(false);
 
   const { isSideMenuShort } = useAppContext();
@@ -39,7 +63,7 @@ const VideoShortsItem = () => {
       onMouseOver={() => setPlayPreviewVideo(true)}
       onMouseOut={() => setPlayPreviewVideo(false)}
     >
-      <VideoItemThumbnail $isSideMenuShort={isSideMenuShort}>
+      <VideoShortsItemThumbnail $isSideMenuShort={isSideMenuShort}>
         {playPreviewVideo ? (
           <ReactPlayer
             width="100%"
@@ -54,19 +78,12 @@ const VideoShortsItem = () => {
         ) : (
           <img src={snippet.thumbnails.medium.url} alt="thmabnail" />
         )}
-      </VideoItemThumbnail>
-      <VideoItemBasicDesc>
-        <VideoProfileImage>
-          <img src={snippet.thumbnails.default.url} alt="avatar" />
-        </VideoProfileImage>
-        <VideoItemBasicTitle>
-          <Text className="videoTitle">
-            {videoTitle.slice(0, TITLE_MAX_LENGTH)}
-            {videoTitle.length > TITLE_MAX_LENGTH && "..."}
-          </Text>
-          <Text className="videoChannel">{snippet.channelTitle}</Text>
-        </VideoItemBasicTitle>
-      </VideoItemBasicDesc>
+      </VideoShortsItemThumbnail>
+      <Text className="shortTitle">
+        {videoTitle.slice(0, TITLE_MAX_LENGTH)}
+        {videoTitle.length > TITLE_MAX_LENGTH && "..."}
+      </Text>
+      <Text className="shortDetails ">{snippet.channelTitle}</Text>
     </StyledVideoShortsItem>
   );
 };
