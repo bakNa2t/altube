@@ -17,6 +17,11 @@ const StyledVideoItemBasic = styled.div`
   &:hover {
     cursor: pointer;
   }
+
+  &.compact {
+    flex-direction: row;
+    height: auto;
+  }
 `;
 
 const VideoItemThumbnail = styled.div<{ $isSideMenuShort?: boolean }>`
@@ -38,6 +43,11 @@ const VideoItemThumbnail = styled.div<{ $isSideMenuShort?: boolean }>`
     css`
       height: 14rem;
     `};
+
+  &.compact {
+    width: 19rem;
+    height: 6rem;
+  }
 `;
 
 const VideoItemBasicDesc = styled.div`
@@ -45,6 +55,10 @@ const VideoItemBasicDesc = styled.div`
   display: grid;
   grid-template-columns: 2.3rem 1fr;
   gap: 0.8rem;
+
+  &.compact {
+    display: flex;
+  }
 `;
 
 const VideoProfileImage = styled.div`
@@ -58,6 +72,10 @@ const VideoProfileImage = styled.div`
     border-radius: inherit;
     object-fit: cover;
   }
+
+  &.compact {
+    display: none;
+  }
 `;
 
 const VideoItemBasicTitle = styled.div`
@@ -66,20 +84,29 @@ const VideoItemBasicTitle = styled.div`
   .videoTitle {
     font-size: 1rem;
     font-weight: 600;
+
+    &.compact {
+      font-size: 0.8rem;
+    }
   }
 
   .videoChannel {
     font-size: 0.8rem;
     margin: 0.5rem 0 0.2rem 0;
     color: ${({ theme: { color_grey_1 } }) => color_grey_1};
+
+    &.compact {
+      font-size: 0.7rem;
+    }
   }
 `;
 
 interface IVideoItemBasicProps {
   dataVideos: VideoProps;
+  compactView?: boolean;
 }
 
-const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
+const VideoItemBasic = ({ dataVideos, compactView }: IVideoItemBasicProps) => {
   const [playPreviewVideo, setPlayPreviewVideo] = useState(false);
 
   const { isSideMenuShort, setWatchVideoItem } = useAppContext();
@@ -95,8 +122,12 @@ const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
       onMouseOver={() => setPlayPreviewVideo(true)}
       onMouseOut={() => setPlayPreviewVideo(false)}
       onClick={() => setWatchVideoItem(id.videoId)}
+      className={`${compactView && "compact"} `}
     >
-      <VideoItemThumbnail $isSideMenuShort={isSideMenuShort}>
+      <VideoItemThumbnail
+        $isSideMenuShort={isSideMenuShort}
+        className={`${compactView && "compact"} `}
+      >
         {playPreviewVideo ? (
           <ReactPlayer
             width="100%"
@@ -112,16 +143,18 @@ const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
           <img src={snippet.thumbnails.medium.url} alt="thmabnail" />
         )}
       </VideoItemThumbnail>
-      <VideoItemBasicDesc>
-        <VideoProfileImage>
+      <VideoItemBasicDesc className={`${compactView && "compact"} `}>
+        <VideoProfileImage className={`${compactView && "compact"}`}>
           <img src={snippet.thumbnails.default.url} alt="avatar" />
         </VideoProfileImage>
         <VideoItemBasicTitle>
-          <Text className="videoTitle">
+          <Text className={`videoTitle ${compactView && "compact"}`}>
             {videoTitle.slice(0, TITLE_MAX_LENGTH)}
             {videoTitle.length > TITLE_MAX_LENGTH && "..."}
           </Text>
-          <Text className="videoChannel">{snippet.channelTitle}</Text>
+          <Text className={`videoChannel ${compactView && "compact"}`}>
+            {snippet.channelTitle}
+          </Text>
         </VideoItemBasicTitle>
       </VideoItemBasicDesc>
     </StyledVideoItemBasic>
