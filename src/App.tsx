@@ -1,13 +1,15 @@
+import { Route, Routes } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import { DefaultTheme } from "styled-components/dist/types";
 
 import Header from "./components/header/Header";
 import Appbody from "./components/main/Appbody";
-import ToolTips from "./utils/ToolTips";
+import VideoItemWatch from "./components/content/VideoItemWatch";
 
+import { useAppContext } from "./context/AppContext";
 import { THEMES } from "./styles/theme";
 import GlobalStyles from "./styles/GlobalStyles";
-import { useAppContext } from "./context/AppContext";
+import ToolTips from "./utils/ToolTips";
 
 const AppContainer = styled.div`
   width: 100vw;
@@ -26,7 +28,10 @@ function App() {
       <ToolTips />
       <AppContainer>
         <Header />
-        <Appbody />
+        <Routes>
+          <Route path="/" element={<Appbody />} />
+          <Route path="/:id" element={<VideoItemWatch />} />
+        </Routes>
       </AppContainer>
     </ThemeProvider>
   );
