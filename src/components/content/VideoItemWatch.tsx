@@ -37,7 +37,7 @@ const VideoItemWatch = () => {
       <VideosSuggestionContainer>
         <h3>Suggestion's Videos</h3>
         {dataVideos.map((video, index) => (
-          <VideoItemBasic dataVideos={video} key={index} />
+          <VideoItemBasic dataVideos={video} key={index} compactView />
         ))}
       </VideosSuggestionContainer>
     </StyledVideoItemWatch>
