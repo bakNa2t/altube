@@ -11,6 +11,7 @@ import {
 import { ITranslations, LANGUAGE } from "../utils/translations";
 import { BASE_URL, options } from "../utils/rapid-api/config";
 import { VideoProps } from "../interfaces/videos";
+import { useNavigate } from "react-router-dom";
 
 interface IAppContextVlaue {
   theme: "light" | "dark";
@@ -27,6 +28,8 @@ interface IAppContextVlaue {
   setActiveCategory: Dispatch<SetStateAction<string>>;
   dataVideos: VideoProps[];
   isFetchingVideos: boolean;
+  watchVideoItem: string;
+  setWatchVideoItem: Dispatch<SetStateAction<string>>;
 }
 
 interface IAppContextProps {
@@ -44,6 +47,9 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [activeCategory, setActiveCategory] = useState("Sports");
   const [dataVideos, setDataVideos] = useState<VideoProps[]>([]);
   const [isFetchingVideos, setIsFetcingVideos] = useState(false);
+  const [watchVideoItem, setWatchVideoItem] = useState<string>("");
+
+  const navigate = useNavigate();
 
   const toggleTheme = () => {
     setTheme((theme) => (theme === "light" ? "dark" : "light"));
@@ -69,6 +75,12 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     );
   }, [searchBarText]);
 
+  useEffect(() => {
+    if (watchVideoItem !== "") {
+      navigate(`/${watchVideoItem}`);
+    }
+  }, [watchVideoItem]);
+
   const value = {
     theme,
     language,
@@ -84,6 +96,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     setActiveCategory,
     dataVideos,
     isFetchingVideos,
+    watchVideoItem,
+    setWatchVideoItem,
   };
 
   const fetchFromApi = async (url?: string) => {
