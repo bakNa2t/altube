@@ -1,13 +1,12 @@
 import { useState } from "react";
 import ReactPlayer from "react-player";
 import styled, { css } from "styled-components";
-import { useAppContext } from "../../context/AppContext";
+
 import { Text } from "../../styles/TextStyle";
+
+import { useAppContext } from "../../context/AppContext";
 import { VideoProps } from "../../interfaces/videos";
-
-const TITLE_MAX_LENGTH = 50;
-
-const url = "https://www.youtube.com/watch?v=";
+import { TITLE_MAX_LENGTH, API_URL } from "../../utils/constants/env";
 
 const StyledVideoItemBasic = styled.div`
   display: flex;
@@ -105,7 +104,7 @@ const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
             volume={0}
             muted={false}
             playing={playPreviewVideo}
-            url={`${url}${id.videoId}`}
+            url={`${API_URL}${id.videoId}`}
             style={{ width: "100%", height: "100%" }}
           />
         ) : (

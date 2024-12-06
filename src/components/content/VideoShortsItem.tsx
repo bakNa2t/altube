@@ -2,12 +2,11 @@ import { useState } from "react";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
 
-import { useAppContext } from "../../context/AppContext";
-import { VideoProps } from "../../interfaces/videos";
 import { Text } from "../../styles/TextStyle";
 
-const TITLE_MAX_LENGTH = 50;
-const url = "https://www.youtube.com/watch?v=";
+import { useAppContext } from "../../context/AppContext";
+import { VideoProps } from "../../interfaces/videos";
+import { TITLE_MAX_LENGTH, API_URL } from "../../utils/constants/env";
 
 const StyledVideoShortsItem = styled.div`
   display: flex;
@@ -72,7 +71,7 @@ const VideoShortsItem = ({ dataVideos }: IVideoShortsItemProps) => {
             volume={0}
             muted={false}
             playing={playPreviewVideo}
-            url={`${url}${id.videoId}`}
+            url={`${API_URL}${id.videoId}`}
             style={{ width: "100%", height: "100%" }}
           />
         ) : (
