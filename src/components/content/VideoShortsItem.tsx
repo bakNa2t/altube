@@ -52,7 +52,7 @@ interface IVideoShortsItemProps {
 const VideoShortsItem = ({ dataVideos }: IVideoShortsItemProps) => {
   const [playPreviewVideo, setPlayPreviewVideo] = useState(false);
 
-  const { isSideMenuShort } = useAppContext();
+  const { isSideMenuShort, setWatchVideoItem } = useAppContext();
 
   const { id, snippet } = dataVideos;
   const videoTitle = snippet.title;
@@ -61,6 +61,7 @@ const VideoShortsItem = ({ dataVideos }: IVideoShortsItemProps) => {
     <StyledVideoShortsItem
       onMouseOver={() => setPlayPreviewVideo(true)}
       onMouseOut={() => setPlayPreviewVideo(false)}
+      onClick={() => setWatchVideoItem(id.videoId)}
     >
       <VideoShortsItemThumbnail $isSideMenuShort={isSideMenuShort}>
         {playPreviewVideo ? (

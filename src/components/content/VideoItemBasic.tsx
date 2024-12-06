@@ -82,7 +82,7 @@ interface IVideoItemBasicProps {
 const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
   const [playPreviewVideo, setPlayPreviewVideo] = useState(false);
 
-  const { isSideMenuShort } = useAppContext();
+  const { isSideMenuShort, setWatchVideoItem } = useAppContext();
 
   console.log(dataVideos);
 
@@ -94,6 +94,7 @@ const VideoItemBasic = ({ dataVideos }: IVideoItemBasicProps) => {
     <StyledVideoItemBasic
       onMouseOver={() => setPlayPreviewVideo(true)}
       onMouseOut={() => setPlayPreviewVideo(false)}
+      onClick={() => setWatchVideoItem(id.videoId)}
     >
       <VideoItemThumbnail $isSideMenuShort={isSideMenuShort}>
         {playPreviewVideo ? (
