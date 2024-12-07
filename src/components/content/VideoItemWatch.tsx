@@ -1,8 +1,10 @@
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import VideoItemBasic from "./VideoItemBasic";
 
 import { useAppContext } from "../../context/AppContext";
+import { useEffect } from "react";
 
 const StyledVideoItemWatch = styled.div`
   display: grid;
@@ -29,8 +31,16 @@ const VideosSuggestionContainer = styled.div`
 `;
 
 const VideoItemWatch = () => {
-  const { dataVideos } = useAppContext();
+  const { id } = useParams();
+  const { dataVideos, fetchFromApibyId, fetchVideoById } = useAppContext();
 
+  document.title = `Altube | ${fetchVideoById?.snippet?.title}`;
+
+  useEffect(() => {
+    fetchFromApibyId(id);
+  }, [id]);
+
+  console.log(fetchVideoById, id);
   return (
     <StyledVideoItemWatch>
       <div>Video Player</div>
