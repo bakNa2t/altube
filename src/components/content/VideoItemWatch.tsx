@@ -1,10 +1,11 @@
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
+import { Backdrop } from "./Content";
 import VideoItemBasic from "./VideoItemBasic";
 
 import { useAppContext } from "../../context/AppContext";
-import { useEffect } from "react";
 
 const StyledVideoItemWatch = styled.div`
   display: grid;
@@ -32,13 +33,18 @@ const VideosSuggestionContainer = styled.div`
 
 const VideoItemWatch = () => {
   const { id } = useParams();
-  const { dataVideos, fetchFromApibyId, fetchVideoById } = useAppContext();
+  const { dataVideos, fetchFromApibyId, fetchVideoById, isFetchingVideos } =
+    useAppContext();
 
   document.title = `Altube | ${fetchVideoById?.snippet?.title}`;
 
   useEffect(() => {
     fetchFromApibyId(id);
   }, [id]);
+
+  if (isFetchingVideos) {
+    return <Backdrop />;
+  }
 
   console.log(fetchVideoById, id);
   return (
