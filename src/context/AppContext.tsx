@@ -7,11 +7,11 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { ITranslations, LANGUAGE } from "../utils/translations";
-import { BASE_URL, options } from "../utils/rapid-api/config";
+import { BASE_URL, options, VIDEO_URL } from "../utils/rapid-api/config";
 import { VideoProps } from "../interfaces/videos";
-import { useNavigate } from "react-router-dom";
 
 interface IAppContextVlaue {
   theme: "light" | "dark";
@@ -30,6 +30,8 @@ interface IAppContextVlaue {
   isFetchingVideos: boolean;
   watchVideoItem: string;
   setWatchVideoItem: Dispatch<SetStateAction<string>>;
+  fetchVideoById: any[] | undefined;
+  fetchFromApibyId: (id: string | undefined) => Promise<void>;
 }
 
 interface IAppContextProps {
@@ -48,38 +50,77 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [dataVideos, setDataVideos] = useState<VideoProps[]>([]);
   const [isFetchingVideos, setIsFetcingVideos] = useState(false);
   const [watchVideoItem, setWatchVideoItem] = useState<string>("");
+  const [fetchVideoById, setFetchVideoById] = useState<any[]>([]);
 
   const navigate = useNavigate();
 
+  // Swap dark and light theme
   const toggleTheme = () => {
     setTheme((theme) => (theme === "light" ? "dark" : "light"));
   };
 
+  // Swap english and russian
   const toggleLanguage = () => {
     setLanguage((language) => (language === "english" ? "russian" : "english"));
   };
 
+  // Swap sidemenu sizing
   const toggleSideMenuShortResize = () => {
     setIsSideMenuShort((state) => !state);
   };
 
+  // Fetch videos data by category
   useEffect(() => {
     fetchFromApi(
       `search?q=${activeCategory}&part=snippet%2Cid&regionCode=US&maxResults=50&order=date`
     );
   }, [activeCategory]);
 
+  // Fetch videos data by search input
   useEffect(() => {
     fetchFromApi(
       `search?q=${searchBarText}&part=snippet%2Cid&regionCode=US&maxResults=50&order=date`
     );
   }, [searchBarText]);
 
+  // Navigate to watch video by id
   useEffect(() => {
     if (watchVideoItem !== "") {
       navigate(`/${watchVideoItem}`);
     }
   }, [watchVideoItem]);
+
+  // Fetch videos data from API
+  const fetchFromApi = async (url?: string) => {
+    try {
+      setIsFetcingVideos(true);
+      const response = await fetch(`${BASE_URL}/${url}`, options);
+      const result = await response.text();
+      const data = JSON.parse(result);
+
+      setDataVideos(data.items);
+      setIsFetcingVideos(false);
+    } catch (error) {
+      console.error(error);
+      setIsFetcingVideos(false);
+    }
+  };
+
+  // Fetch videos data by id
+  const fetchFromApibyId = async (id: string | undefined) => {
+    try {
+      setIsFetcingVideos(true);
+      const response = await fetch(`${VIDEO_URL}${id}`, options);
+      const result = await response.text();
+      const data = JSON.parse(result);
+
+      setFetchVideoById(data.items[0]);
+      setIsFetcingVideos(false);
+    } catch (error) {
+      console.error(error);
+      setIsFetcingVideos(false);
+    }
+  };
 
   const value = {
     theme,
@@ -98,21 +139,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     isFetchingVideos,
     watchVideoItem,
     setWatchVideoItem,
-  };
-
-  const fetchFromApi = async (url?: string) => {
-    try {
-      setIsFetcingVideos(true);
-      const response = await fetch(`${BASE_URL}/${url}`, options);
-      const result = await response.text();
-      const data = JSON.parse(result);
-
-      setDataVideos(data.items);
-      setIsFetcingVideos(false);
-    } catch (error) {
-      console.error(error);
-      setIsFetcingVideos(false);
-    }
+    fetchVideoById,
+    fetchFromApibyId,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
