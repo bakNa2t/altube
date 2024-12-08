@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import ReactPlayer from "react-player";
 import styled from "styled-components";
 
 import { Backdrop } from "./Content";
 import VideoItemBasic from "./VideoItemBasic";
 
 import { useAppContext } from "../../context/AppContext";
+import { API_URL } from "../../utils/constants/env";
 
 const StyledVideoItemWatch = styled.div`
   display: grid;
@@ -62,7 +64,18 @@ const VideoItemWatch = () => {
   return (
     <StyledVideoItemWatch>
       <VideoItemContainer>
-        <VideoItemPlayer></VideoItemPlayer>
+        <VideoItemPlayer>
+          <ReactPlayer
+            width="100%"
+            height="100%"
+            controls={false}
+            volume={0}
+            muted={false}
+            playing={false}
+            url={`${API_URL}${id}`}
+            style={{ width: "100%", height: "100%" }}
+          />
+        </VideoItemPlayer>
       </VideoItemContainer>
       <VideosSuggestionContainer>
         <h3>Suggestion's Videos</h3>
