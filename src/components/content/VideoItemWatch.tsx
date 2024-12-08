@@ -31,6 +31,18 @@ const VideoItemPlayer = styled.div`
   overflow: hidden;
 `;
 
+const VideoItemDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1.5rem;
+  gap: 0.5rem;
+
+  h2 {
+    color: ${({ theme: { text } }) => text};
+  }
+`;
+
 const VideosSuggestionContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -76,6 +88,9 @@ const VideoItemWatch = () => {
             style={{ width: "100%", height: "100%" }}
           />
         </VideoItemPlayer>
+        <VideoItemDetails>
+          <h2>{fetchVideoById?.snippet?.title}</h2>
+        </VideoItemDetails>
       </VideoItemContainer>
       <VideosSuggestionContainer>
         <h3>Suggestion's Videos</h3>
