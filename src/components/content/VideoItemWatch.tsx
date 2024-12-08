@@ -17,6 +17,18 @@ const StyledVideoItemWatch = styled.div`
   overflow: scroll;
 `;
 
+const VideoItemContainer = styled.div`
+  width: 100;
+  padding-top: 1.5rem;
+`;
+
+const VideoItemPlayer = styled.div`
+  width: 100%;
+  height: 44rem;
+  border-radius: 1rem;
+  overflow: hidden;
+`;
+
 const VideosSuggestionContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -49,7 +61,9 @@ const VideoItemWatch = () => {
   console.log(fetchVideoById, id);
   return (
     <StyledVideoItemWatch>
-      <div>Video Player</div>
+      <VideoItemContainer>
+        <VideoItemPlayer></VideoItemPlayer>
+      </VideoItemContainer>
       <VideosSuggestionContainer>
         <h3>Suggestion's Videos</h3>
         {dataVideos.map((video, index) => (
