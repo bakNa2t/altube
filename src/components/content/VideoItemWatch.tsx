@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
 
-import { Backdrop } from "./Content";
+// import { Backdrop } from "./Content";
 import VideoItemBasic from "./VideoItemBasic";
 
 import { useAppContext } from "../../context/AppContext";
@@ -59,20 +59,24 @@ const VideosSuggestionContainer = styled.div`
 
 const VideoItemWatch = () => {
   const { id } = useParams();
-  const { dataVideos, fetchFromApibyId, fetchVideoById, isFetchingVideos } =
-    useAppContext();
+  const {
+    dataVideos,
+    fetchFromApibyId,
+    fetchVideoById /*, isFetchingVideos*/,
+  } = useAppContext();
 
-  document.title = `Altube | ${fetchVideoById?.snippet?.title}`;
+  document.title = `Altube | ${fetchVideoById[0].snippet?.title}`;
 
   useEffect(() => {
     fetchFromApibyId(id);
   }, [id]);
 
-  if (isFetchingVideos) {
-    return <Backdrop />;
-  }
+  console.log(fetchVideoById);
 
-  console.log(fetchVideoById, id);
+  // if (isFetchingVideos) {
+  //   return <Backdrop />;
+  // }
+
   return (
     <StyledVideoItemWatch>
       <VideoItemContainer>
@@ -89,7 +93,7 @@ const VideoItemWatch = () => {
           />
         </VideoItemPlayer>
         <VideoItemDetails>
-          <h2>{fetchVideoById?.snippet?.title}</h2>
+          <h2>{fetchVideoById[0].snippet?.title}</h2>
         </VideoItemDetails>
       </VideoItemContainer>
       <VideosSuggestionContainer>
