@@ -3,15 +3,16 @@ import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
 
-// import { Backdrop } from "./Content";
 import VideoItemBasic from "./VideoItemBasic";
 
 import { useAppContext } from "../../context/AppContext";
 import { API_URL } from "../../utils/constants/env";
+import { Text } from "../../styles/TextStyle";
 
 const StyledVideoItemWatch = styled.div`
+  position: relative;
   display: grid;
-  grid-template-columns: 71.5vw 24vw;
+  grid-template-columns: 64vw 30vw;
   width: 100%;
   height: 94.2vh;
   gap: 1.5rem;
@@ -26,7 +27,7 @@ const VideoItemContainer = styled.div`
 
 const VideoItemPlayer = styled.div`
   width: 100%;
-  height: 44rem;
+  height: 40rem;
   border-radius: 1rem;
   overflow: hidden;
 `;
@@ -38,9 +39,19 @@ const VideoItemDetails = styled.div`
   margin-top: 1.5rem;
   gap: 0.5rem;
 
-  h2 {
-    color: ${({ theme: { text } }) => text};
+  .title {
+    font-size: 1.4rem;
+    font-weight: bold;
   }
+`;
+
+const VideoItemDescription = styled.div`
+  width: 100%;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  line-height: 1.5rem;
+  background-color: ${({ theme: { bgr_second } }) => bgr_second};
 `;
 
 const VideosSuggestionContainer = styled.div`
@@ -49,23 +60,23 @@ const VideosSuggestionContainer = styled.div`
   gap: 1rem;
   width: 100%;
   padding-top: 1.5rem;
+`;
 
-  h3 {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: ${({ theme: { text } }) => text};
-  }
+const Backdrop = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 94.2%;
+  background-color: ${({ theme: { bgr } }) => bgr};
+  z-index: 1000;
+  opacity: 0.8;
 `;
 
 const VideoItemWatch = () => {
   const { id } = useParams();
-  const {
-    dataVideos,
-    fetchFromApibyId,
-    fetchVideoById /*, isFetchingVideos*/,
-  } = useAppContext();
+  const { dataVideos, fetchFromApibyId, fetchVideoById, isFetchingVideos } =
+    useAppContext();
 
-  document.title = `Altube | ${fetchVideoById[0].snippet?.title}`;
+  document.title = `Altube | ${fetchVideoById?.snippet?.title}`;
 
   useEffect(() => {
     fetchFromApibyId(id);
@@ -73,9 +84,9 @@ const VideoItemWatch = () => {
 
   console.log(fetchVideoById);
 
-  // if (isFetchingVideos) {
-  //   return <Backdrop />;
-  // }
+  if (isFetchingVideos) {
+    return <Backdrop />;
+  }
 
   return (
     <StyledVideoItemWatch>
@@ -93,11 +104,13 @@ const VideoItemWatch = () => {
           />
         </VideoItemPlayer>
         <VideoItemDetails>
-          <h2>{fetchVideoById[0].snippet?.title}</h2>
+          <Text className="title">{fetchVideoById?.snippet?.title}</Text>
+          <VideoItemDescription>
+            <Text>{fetchVideoById?.snippet?.description}</Text>
+          </VideoItemDescription>
         </VideoItemDetails>
       </VideoItemContainer>
       <VideosSuggestionContainer>
-        <h3>Suggestion's Videos</h3>
         {dataVideos.map((video, index) => (
           <VideoItemBasic dataVideos={video} key={index} compactView />
         ))}
