@@ -2,6 +2,10 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
+import { HiDotsHorizontal } from "react-icons/hi";
+import { PiListPlusFill } from "react-icons/pi";
+import { IoArrowRedoOutline } from "react-icons/io5";
+import { TiThumbsDown, TiThumbsUp } from "react-icons/ti";
 
 import VideoItemBasic from "./VideoItemBasic";
 
@@ -89,7 +93,7 @@ const VideoItemChannelDetails = styled.div`
 `;
 
 const SubscribeBtn = styled.div`
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 600;
   margin-left: 2rem;
   padding: 0.5rem 1rem;
@@ -99,6 +103,31 @@ const SubscribeBtn = styled.div`
 
   &:hover {
     cursor: pointer;
+  }
+`;
+
+const VideoItemActionButtons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const ActionButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 100rem;
+  padding: 0.5rem;
+  color: ${({ theme: { text } }) => text};
+  background-color: ${({ theme: { color_grey_3 } }) => color_grey_3};
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .divider {
+    border-left: 1px solid ${({ theme: { color_grey_1 } }) => color_grey_1};
   }
 `;
 
@@ -185,6 +214,31 @@ const VideoItemWatch = () => {
               </VideoItemChannelDetails>
               <SubscribeBtn>{text.subscribe}</SubscribeBtn>
             </VideoItemInfo>
+
+            <VideoItemActionButtons>
+              <ActionButton>
+                <>
+                  <TiThumbsUp size={18} />
+                  <Text>{fetchVideoById?.statistics?.likeCount}</Text>
+                </>
+                <span className="divider">&nbsp;</span>
+                <TiThumbsDown size={18} />
+              </ActionButton>
+
+              <ActionButton>
+                <IoArrowRedoOutline size={18} />
+                <Text>{text.share}</Text>
+              </ActionButton>
+
+              <ActionButton>
+                <PiListPlusFill size={18} />
+                <Text>{text.save}</Text>
+              </ActionButton>
+
+              <ActionButton>
+                <HiDotsHorizontal size={18} />
+              </ActionButton>
+            </VideoItemActionButtons>
           </VideoItemActions>
           <VideoItemDescription>
             <Text>{fetchVideoById?.snippet?.description}</Text>
