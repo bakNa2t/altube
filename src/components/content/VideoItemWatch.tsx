@@ -40,8 +40,65 @@ const VideoItemDetails = styled.div`
   gap: 0.5rem;
 
   .title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: bold;
+  }
+`;
+
+const VideoItemActions = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+`;
+
+const VideoItemInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const VideoItemChannelImg = styled.div`
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 1000rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+  }
+`;
+
+const VideoItemChannelDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+
+  .channel {
+    font-weight: 600;
+  }
+
+  .subscribers {
+    font-size: 0.8rem;
+    color: ${({ theme: { color_grey_3 } }) => color_grey_3};
+  }
+`;
+
+const SubscribeBtn = styled.div`
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-left: 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 100rem;
+  color: ${({ theme: { bgr } }) => bgr};
+  background-color: ${({ theme: { text } }) => text};
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 
@@ -73,8 +130,13 @@ const Backdrop = styled.div`
 
 const VideoItemWatch = () => {
   const { id } = useParams();
-  const { dataVideos, fetchFromApibyId, fetchVideoById, isFetchingVideos } =
-    useAppContext();
+  const {
+    dataVideos,
+    fetchFromApibyId,
+    fetchVideoById,
+    isFetchingVideos,
+    text,
+  } = useAppContext();
 
   document.title = `Altube | ${fetchVideoById?.snippet?.title}`;
 
@@ -105,6 +167,25 @@ const VideoItemWatch = () => {
         </VideoItemPlayer>
         <VideoItemDetails>
           <Text className="title">{fetchVideoById?.snippet?.title}</Text>
+          <VideoItemActions>
+            <VideoItemInfo>
+              <VideoItemChannelImg>
+                <img
+                  src={fetchVideoById?.snippet?.thumbnails?.medium?.url}
+                  alt="channel avatar"
+                />
+              </VideoItemChannelImg>
+              <VideoItemChannelDetails>
+                <Text className="channel">
+                  {fetchVideoById?.snippet?.channelTitle}
+                </Text>
+                <Text className="subscribers">
+                  {`${Math.floor(Math.random() * 100000)} ${text.subscribers}`}
+                </Text>
+              </VideoItemChannelDetails>
+              <SubscribeBtn>{text.subscribe}</SubscribeBtn>
+            </VideoItemInfo>
+          </VideoItemActions>
           <VideoItemDescription>
             <Text>{fetchVideoById?.snippet?.description}</Text>
           </VideoItemDescription>
