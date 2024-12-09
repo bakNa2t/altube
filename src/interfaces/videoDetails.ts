@@ -1,6 +1,6 @@
 import { Thumbnails } from "./videos";
 
-export interface IVideoDetailsProps {
+export interface IVideoDetails {
   contentDetails: IContentDetails;
   id: string;
   kind?: string;

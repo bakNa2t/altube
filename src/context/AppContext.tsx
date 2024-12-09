@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { ITranslations, LANGUAGE } from "../utils/translations";
 import { BASE_URL, options, VIDEO_URL } from "../utils/rapid-api/config";
 import { VideoProps } from "../interfaces/videos";
+import { IVideoDetails } from "../interfaces/videoDetails";
 
 interface IAppContextVlaue {
   theme: "light" | "dark";
@@ -30,7 +31,7 @@ interface IAppContextVlaue {
   isFetchingVideos: boolean;
   watchVideoItem: string;
   setWatchVideoItem: Dispatch<SetStateAction<string>>;
-  fetchVideoById: any[] | undefined;
+  fetchVideoById: IVideoDetails[];
   fetchFromApibyId: (id: string | undefined) => Promise<void>;
 }
 
@@ -50,7 +51,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [dataVideos, setDataVideos] = useState<VideoProps[]>([]);
   const [isFetchingVideos, setIsFetcingVideos] = useState(false);
   const [watchVideoItem, setWatchVideoItem] = useState<string>("");
-  const [fetchVideoById, setFetchVideoById] = useState<any[]>([]);
+  const [fetchVideoById, setFetchVideoById] = useState<IVideoDetails[]>([]);
 
   const navigate = useNavigate();
 
