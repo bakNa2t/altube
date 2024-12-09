@@ -1,5 +1,6 @@
 interface ITheme {
   bgr: string;
+  bgr_second: string;
   text: string;
   color_brand: string;
   color_grey_1: string;
@@ -16,6 +17,7 @@ interface ITheme {
 
 export const darkTheme: ITheme = {
   bgr: "#0f172a",
+  bgr_second: "#274481",
   text: "#e2e8f0",
   color_brand: "#9333ea",
   color_grey_1: "#9ca3af",
@@ -32,6 +34,7 @@ export const darkTheme: ITheme = {
 
 export const lightTheme: ITheme = {
   bgr: "#f1f5f9",
+  bgr_second: "#cedde9",
   text: "#020617",
   color_brand: "#9333ea",
   color_grey_1: "#9ca3af",
