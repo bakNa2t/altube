@@ -31,7 +31,7 @@ interface IAppContextVlaue {
   isFetchingVideos: boolean;
   watchVideoItem: string;
   setWatchVideoItem: Dispatch<SetStateAction<string>>;
-  fetchVideoById: IVideoDetails[];
+  fetchVideoById: IVideoDetails | undefined;
   fetchFromApibyId: (id: string | undefined) => Promise<void>;
 }
 
@@ -51,7 +51,9 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [dataVideos, setDataVideos] = useState<VideoProps[]>([]);
   const [isFetchingVideos, setIsFetcingVideos] = useState(false);
   const [watchVideoItem, setWatchVideoItem] = useState<string>("");
-  const [fetchVideoById, setFetchVideoById] = useState<IVideoDetails[]>([]);
+  const [fetchVideoById, setFetchVideoById] = useState<
+    IVideoDetails | undefined
+  >(undefined);
 
   const navigate = useNavigate();
 
