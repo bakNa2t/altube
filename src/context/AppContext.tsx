@@ -7,7 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { ITranslations, LANGUAGE } from "../utils/translations";
 import { BASE_URL, options, VIDEO_URL } from "../utils/rapid-api/config";
@@ -33,6 +33,7 @@ interface IAppContextVlaue {
   setWatchVideoItem: Dispatch<SetStateAction<string>>;
   fetchVideoById: IVideoDetails | undefined;
   fetchFromApibyId: (id: string | undefined) => Promise<void>;
+  isAppbodyPath: boolean;
 }
 
 interface IAppContextProps {
@@ -56,6 +57,9 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   >(undefined);
 
   const navigate = useNavigate();
+
+  const { pathname } = useLocation();
+  const isAppbodyPath = pathname.length === 1;
 
   // Swap dark and light theme
   const toggleTheme = () => {
@@ -144,6 +148,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     setWatchVideoItem,
     fetchVideoById,
     fetchFromApibyId,
+    isAppbodyPath,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
