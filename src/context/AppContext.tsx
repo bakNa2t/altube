@@ -139,7 +139,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     setSearchBarText,
     isSideMenuShort,
     toggleSideMenuShortResize,
-    activeMenuLink,
+    activeMenuLink: LANGUAGE[language][activeMenuLink as keyof ITranslations],
     activeCategory,
     setActiveCategory,
     dataVideos,
