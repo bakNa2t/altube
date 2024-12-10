@@ -28,4 +28,10 @@ export const IconStyle = styled.div<{ $showBackground?: boolean }>`
     animation: ${beats} 1s linear infinite;
     background-color: ${({ theme: { color_brand } }) => color_brand};
   }
+
+  &.disabled {
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
 `;
