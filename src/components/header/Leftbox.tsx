@@ -13,11 +13,14 @@ const StyledLeftbox = styled.div`
 `;
 
 const Leftbox = () => {
-  const { toggleSideMenuShortResize } = useAppContext();
+  const { toggleSideMenuShortResize, isAppbodyPath } = useAppContext();
 
   return (
     <StyledLeftbox>
-      <IconStyle className="menu" onClick={() => toggleSideMenuShortResize()}>
+      <IconStyle
+        className={`"mneu" ${!isAppbodyPath && "disabled"}`}
+        onClick={() => toggleSideMenuShortResize()}
+      >
         <SlMenu size={18} />
       </IconStyle>
       <Logo />

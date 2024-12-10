@@ -11,8 +11,8 @@ const StyledHeader = styled.header`
   padding: 0 1rem;
   width: 100%;
   height: 7vh;
-  /* background-color: ${(props) => props.theme.color_blue}; */
 `;
+
 const Header = () => {
   return (
     <StyledHeader>
