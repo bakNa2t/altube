@@ -165,9 +165,12 @@ const VideoItemWatch = () => {
     fetchVideoById,
     isFetchingVideos,
     text,
+    isAppbodyPath,
   } = useAppContext();
 
-  document.title = `Altube | ${fetchVideoById?.snippet?.title}`;
+  if (!isAppbodyPath) {
+    document.title = `Altube | ${fetchVideoById?.snippet?.title}`;
+  }
 
   useEffect(() => {
     fetchFromApibyId(id);
