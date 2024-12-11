@@ -36,6 +36,8 @@ interface IAppContextVlaue {
   fetchVideoById: IVideoDetails | undefined;
   fetchFromApibyId: (id: string | undefined) => Promise<void>;
   isAppbodyPath: boolean;
+  showSettings: boolean;
+  toggleSettingsDropMenu: () => void;
 }
 
 interface IAppContextProps {
@@ -55,6 +57,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [fetchVideoById, setFetchVideoById] = useState<
     IVideoDetails | undefined
   >(undefined);
+  const [showSettings, setShowSettings] = useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -76,6 +79,11 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   // Swap sidemenu sizing
   const toggleSideMenuShortResize = () => {
     setIsSideMenuShort((state) => !state);
+  };
+
+  // Toggle header settings drop menu
+  const toggleSettingsDropMenu = () => {
+    setShowSettings((state) => !state);
   };
 
   // Fetch videos data by category
@@ -156,6 +164,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     fetchVideoById,
     fetchFromApibyId,
     isAppbodyPath,
+    showSettings,
+    toggleSettingsDropMenu,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
