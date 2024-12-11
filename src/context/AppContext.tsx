@@ -14,7 +14,7 @@ import { BASE_URL, options, VIDEO_URL } from "../utils/rapid-api/config";
 import { VideoProps } from "../interfaces/videos";
 import { IVideoDetails } from "../interfaces/videoDetails";
 import { useAppDispatch, useAppSelector } from "../store/store";
-import { switchThemeColor } from "../store/appSlice";
+import { switchThemeColor, switchTranslation } from "../store/appSlice";
 
 interface IAppContextVlaue {
   theme: "light" | "dark";
@@ -45,7 +45,6 @@ interface IAppContextProps {
 const AppContext = createContext<IAppContextVlaue | null>(null);
 
 export const AppContextProvider = ({ children }: IAppContextProps) => {
-  const [language, setLanguage] = useState<"english" | "russian">("english");
   const [searchBarText, setSearchBarText] = useState("");
   const [isSideMenuShort, setIsSideMenuShort] = useState(false);
   const [activeMenuLink /*, setActiveMenuLink*/] = useState("home");
@@ -71,7 +70,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
 
   // Swap english and russian
   const toggleLanguage = () => {
-    setLanguage((language) => (language === "english" ? "russian" : "english"));
+    dispatch(switchTranslation());
   };
 
   // Swap sidemenu sizing
@@ -134,15 +133,20 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
 
   const value = {
     theme: useAppSelector((state) => state.app.theme),
-    language,
-    text: LANGUAGE[language],
+    language: useAppSelector((state) => state.app.language),
+    text: LANGUAGE[
+      useAppSelector((state) => state.app.language) as keyof typeof LANGUAGE
+    ],
     toggleLanguage,
     toggleTheme,
     searchBarText,
     setSearchBarText,
     isSideMenuShort,
     toggleSideMenuShortResize,
-    activeMenuLink: LANGUAGE[language][activeMenuLink as keyof ITranslations],
+    activeMenuLink:
+      LANGUAGE[
+        useAppSelector((state) => state.app.language) as keyof typeof LANGUAGE
+      ][activeMenuLink as keyof ITranslations],
     activeCategory,
     setActiveCategory,
     dataVideos,
