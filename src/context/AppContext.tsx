@@ -13,6 +13,8 @@ import { ITranslations, LANGUAGE } from "../utils/translations";
 import { BASE_URL, options, VIDEO_URL } from "../utils/rapid-api/config";
 import { VideoProps } from "../interfaces/videos";
 import { IVideoDetails } from "../interfaces/videoDetails";
+import { useAppDispatch, useAppSelector } from "../store/store";
+import { switchThemeColor } from "../store/appSlice";
 
 interface IAppContextVlaue {
   theme: "light" | "dark";
@@ -43,7 +45,6 @@ interface IAppContextProps {
 const AppContext = createContext<IAppContextVlaue | null>(null);
 
 export const AppContextProvider = ({ children }: IAppContextProps) => {
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [language, setLanguage] = useState<"english" | "russian">("english");
   const [searchBarText, setSearchBarText] = useState("");
   const [isSideMenuShort, setIsSideMenuShort] = useState(false);
@@ -56,6 +57,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     IVideoDetails | undefined
   >(undefined);
 
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
 
   const { pathname } = useLocation();
@@ -63,7 +66,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
 
   // Swap dark and light theme
   const toggleTheme = () => {
-    setTheme((theme) => (theme === "light" ? "dark" : "light"));
+    dispatch(switchThemeColor());
   };
 
   // Swap english and russian
@@ -130,7 +133,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   };
 
   const value = {
-    theme,
+    theme: useAppSelector((state) => state.app.theme),
     language,
     text: LANGUAGE[language],
     toggleLanguage,
