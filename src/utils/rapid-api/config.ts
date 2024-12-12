@@ -1,4 +1,8 @@
-export const rapidConfig = {
+interface IRapidConfigProps {
+  api_key: string;
+}
+
+export const rapidConfig: IRapidConfigProps = {
   api_key: import.meta.env.VITE_RAPID_API_KEY,
 };
 
