@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
@@ -138,6 +138,14 @@ const VideoItemDescription = styled.div`
   margin-top: 1rem;
   line-height: 1.5rem;
   background-color: ${({ theme: { bgr_second } }) => bgr_second};
+
+  .more {
+    color: ${({ theme: { text } }) => text};
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 `;
 
 const VideosSuggestionContainer = styled.div`
@@ -158,6 +166,7 @@ const Backdrop = styled.div`
 `;
 
 const VideoItemWatch = () => {
+  const [showDesc, setShowDesc] = useState(false);
   const { id } = useParams();
   const {
     dataVideos,
@@ -175,6 +184,10 @@ const VideoItemWatch = () => {
   useEffect(() => {
     fetchFromApibyId(id);
   }, [id]);
+
+  const desc = showDesc
+    ? fetchVideoById?.snippet?.description
+    : fetchVideoById?.snippet?.description.slice(0, 200);
 
   console.log(fetchVideoById);
 
@@ -243,8 +256,15 @@ const VideoItemWatch = () => {
               </ActionButton>
             </VideoItemActionButtons>
           </VideoItemActions>
-          <VideoItemDescription>
-            <Text>{fetchVideoById?.snippet?.description}</Text>
+          <VideoItemDescription onClick={() => setShowDesc(!showDesc)}>
+            <Text>
+              {desc}
+              {showDesc ? (
+                <div className="more">Show less</div>
+              ) : (
+                <span className="more"> ...more</span>
+              )}
+            </Text>
           </VideoItemDescription>
         </VideoItemDetails>
       </VideoItemContainer>
