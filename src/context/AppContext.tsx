@@ -50,7 +50,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [searchBarText, setSearchBarText] = useState("");
   const [isSideMenuShort, setIsSideMenuShort] = useState(false);
   const [activeMenuLink /*, setActiveMenuLink*/] = useState("home");
-  const [activeCategory, setActiveCategory] = useState("Sports");
+  const [activeCategory, setActiveCategory] = useState("New");
   const [dataVideos, setDataVideos] = useState<VideoProps[]>([]);
   const [isFetchingVideos, setIsFetcingVideos] = useState(false);
   const [watchVideoItem, setWatchVideoItem] = useState<string>("");
@@ -66,17 +66,17 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const { pathname } = useLocation();
   const isAppbodyPath = pathname.length === 1;
 
-  // Swap dark and light theme
+  // Toggle dark and light theme
   const toggleTheme = () => {
     dispatch(switchThemeColor());
   };
 
-  // Swap english and russian
+  // Toggle english and russian
   const toggleLanguage = () => {
     dispatch(switchTranslation());
   };
 
-  // Swap sidemenu sizing
+  // Toggle sidemenu sizing
   const toggleSideMenuShortResize = () => {
     setIsSideMenuShort((state) => !state);
   };
@@ -116,6 +116,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
       const data = JSON.parse(result);
 
       setDataVideos(data.items);
+
       setIsFetcingVideos(false);
     } catch (error) {
       console.error(error);

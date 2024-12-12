@@ -34,11 +34,12 @@ export interface ITranslations {
   fasionBeauty: string;
   podcasts: string;
   signInMenuText: string;
-  all: string;
+  new: string;
   sports: string;
   boxing: string;
   gym: string;
-  flowers: string;
+  nature: string;
+  travel: string;
   soccer: string;
   tennis: string;
   web: string;
@@ -94,11 +95,12 @@ const english: ITranslations = {
   fasionBeauty: "Fasion & Beauty",
   podcasts: "Podcasts",
   signInMenuText: "Sign in to like videos, comment, and subscribe.",
-  all: "All",
+  new: "New",
+  travel: "Travel",
   sports: "Sports",
   boxing: "Boxing",
   gym: "Gym",
-  flowers: "Flowers",
+  nature: "Nature",
   soccer: "Soccer",
   tennis: "Tennis",
   web: "Web",
@@ -155,11 +157,12 @@ const russian: ITranslations = {
   podcasts: "Подкасты",
   signInMenuText:
     "Войти, чтобы поставить лайк, комментировать и подписываться.",
-  all: "Все",
+  new: "Новое",
+  travel: "Путешествия",
   sports: "Спорт",
   boxing: "Бокс",
   gym: "Тренажерная зона",
-  flowers: "Цветы",
+  nature: "Природа",
   soccer: "Футбол",
   tennis: "Теннис",
   web: "Вэб",
