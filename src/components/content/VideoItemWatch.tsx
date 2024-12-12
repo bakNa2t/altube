@@ -12,6 +12,7 @@ import VideoItemBasic from "./VideoItemBasic";
 import { useAppContext } from "../../context/AppContext";
 import { API_URL } from "../../utils/constants/env";
 import { Text } from "../../styles/TextStyle";
+import { convertFormatDate } from "../../utils/func";
 
 const StyledVideoItemWatch = styled.div`
   position: relative;
@@ -129,6 +130,13 @@ const ActionButton = styled.div`
   .divider {
     border-left: 1px solid ${({ theme: { color_grey_1 } }) => color_grey_1};
   }
+`;
+
+const VideoItemStats = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 600;
 `;
 
 const VideoItemDescription = styled.div`
@@ -256,13 +264,24 @@ const VideoItemWatch = () => {
               </ActionButton>
             </VideoItemActionButtons>
           </VideoItemActions>
-          <VideoItemDescription onClick={() => setShowDesc(!showDesc)}>
+          <VideoItemDescription>
+            <VideoItemStats>
+              <Text>{fetchVideoById?.statistics?.viewCount} views</Text>
+              <Text>
+                {convertFormatDate(fetchVideoById?.snippet?.publishedAt)}
+              </Text>
+            </VideoItemStats>
             <Text>
               {desc}
               {showDesc ? (
-                <div className="more">Show less</div>
+                <div className="more" onClick={() => setShowDesc(!showDesc)}>
+                  Show less
+                </div>
               ) : (
-                <span className="more"> ...more</span>
+                <span className="more" onClick={() => setShowDesc(!showDesc)}>
+                  {" "}
+                  ...more
+                </span>
               )}
             </Text>
           </VideoItemDescription>
