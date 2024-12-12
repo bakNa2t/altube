@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { HiLanguage } from "react-icons/hi2";
 import { GoMoon } from "react-icons/go";
@@ -21,8 +22,15 @@ const StyledSettings = styled.div`
 `;
 
 const Settings = () => {
-  const { theme, language, text, toggleLanguage, toggleTheme } =
-    useAppContext();
+  const ref = useRef<HTMLDivElement>(null);
+  const {
+    theme,
+    language,
+    text,
+    toggleLanguage,
+    toggleTheme,
+    toggleSettingsDropMenu,
+  } = useAppContext();
 
   const SETTINGS_DATA = [
     {
@@ -39,8 +47,24 @@ const Settings = () => {
     },
   ];
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        toggleSettingsDropMenu();
+
+        console.log("Clicked outside");
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside, true);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, [ref, toggleSettingsDropMenu]);
+
   return (
-    <StyledSettings>
+    <StyledSettings ref={ref}>
       {SETTINGS_DATA.map(({ label, icon, value, onClick }) => (
         <SettingRow
           key={label}
