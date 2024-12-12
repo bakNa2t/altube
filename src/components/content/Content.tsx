@@ -15,9 +15,12 @@ const StyledContent = styled.section`
 `;
 
 const Backdrop = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   width: 100%;
-  height: 94.2%;
+  height: 100vh;
   background-color: ${({ theme: { bgr } }) => bgr};
   z-index: 1000;
   opacity: 0.8;
@@ -28,7 +31,11 @@ const Content = () => {
 
   return (
     <StyledContent>
-      {isFetchingVideos && <Backdrop />}
+      {isFetchingVideos && (
+        <Backdrop>
+          <img src="assets/icons/spinner.svg" alt="spinner" />
+        </Backdrop>
+      )}
       <Categories />
       <VideosBoard />
     </StyledContent>
