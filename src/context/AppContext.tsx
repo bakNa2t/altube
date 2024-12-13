@@ -10,7 +10,12 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { ITranslations, LANGUAGE } from "../utils/translations";
-import { BASE_URL, options, VIDEO_URL } from "../utils/rapid-api/config";
+import {
+  BASE_URL,
+  COMMENTS_URL,
+  options,
+  VIDEO_URL,
+} from "../utils/rapid-api/config";
 import { VideoProps } from "../interfaces/videos";
 import { IVideoDetails } from "../interfaces/videoDetails";
 import { useAppDispatch, useAppSelector } from "../store/store";
@@ -38,6 +43,8 @@ interface IAppContextVlaue {
   isAppbodyPath: boolean;
   showSettings: boolean;
   toggleSettingsDropMenu: () => void;
+  fetchVideoComments: any[];
+  fetchVideoCommentsById: (id: string | undefined) => Promise<void>;
 }
 
 interface IAppContextProps {
@@ -54,10 +61,11 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [dataVideos, setDataVideos] = useState<VideoProps[]>([]);
   const [isFetchingVideos, setIsFetcingVideos] = useState(false);
   const [watchVideoItem, setWatchVideoItem] = useState<string>("");
+  const [showSettings, setShowSettings] = useState(false);
   const [fetchVideoById, setFetchVideoById] = useState<
     IVideoDetails | undefined
   >(undefined);
-  const [showSettings, setShowSettings] = useState(false);
+  const [fetchVideoComments, setFetchVideoComments] = useState<any[]>([]);
 
   const dispatch = useAppDispatch();
 
@@ -140,6 +148,25 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     }
   };
 
+  // Fetch video comments by id
+  const fetchVideoCommentsById = async (id: string | undefined) => {
+    try {
+      setIsFetcingVideos(true);
+      const response = await fetch(
+        `${COMMENTS_URL}${id}&maxResults=100`,
+        options
+      );
+      const result = await response.text();
+      const data = JSON.parse(result);
+
+      setFetchVideoComments(data.items);
+      setIsFetcingVideos(false);
+    } catch (error) {
+      console.error(error);
+      setIsFetcingVideos(false);
+    }
+  };
+
   const value = {
     theme: useAppSelector((state) => state.app.theme),
     language: useAppSelector((state) => state.app.language),
@@ -167,6 +194,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     isAppbodyPath,
     showSettings,
     toggleSettingsDropMenu,
+    fetchVideoComments,
+    fetchVideoCommentsById,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
