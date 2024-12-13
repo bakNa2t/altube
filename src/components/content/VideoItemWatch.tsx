@@ -156,16 +156,19 @@ const VideoItemDescription = styled.div`
   }
 `;
 
-const VideoItemComments = styled.div`
+const VideoCommentsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   width: 100%;
   padding: 1rem;
-  border-radius: 1rem;
+  /* border-radius: 1rem; */
   margin-top: 1rem;
-  color: ${({ theme: { text } }) => text};
 
   h1 {
     font-size: 1.2rem;
     font-weight: 600;
+    color: ${({ theme: { text } }) => text};
   }
 `;
 
@@ -306,9 +309,13 @@ const VideoItemWatch = () => {
               )}
             </Text>
           </VideoItemDescription>
-          <VideoItemComments>
-            <h1>{fetchVideoById?.statistics?.commentCount} comments</h1>
-          </VideoItemComments>
+          <VideoCommentsContainer>
+            <h1>
+              {fetchVideoById?.statistics?.commentCount
+                ? `${fetchVideoById?.statistics?.commentCount} ${text.comments}`
+                : text.noComments}
+            </h1>
+          </VideoCommentsContainer>
         </VideoItemDetails>
       </VideoItemContainer>
       <VideosSuggestionContainer>
