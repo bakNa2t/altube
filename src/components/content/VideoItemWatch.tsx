@@ -172,6 +172,19 @@ const VideoCommentsContainer = styled.div`
   }
 `;
 
+const VideoCommentsItem = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .author {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: ${({ theme: { text } }) => text};
+  }
+`;
+
 const VideosSuggestionContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -315,6 +328,24 @@ const VideoItemWatch = () => {
                 ? `${fetchVideoById?.statistics?.commentCount} ${text.comments}`
                 : text.noComments}
             </h1>
+
+            {fetchVideoComments?.map((comment, index) => (
+              <VideoCommentsItem key={index}>
+                {comment?.snippet?.topLevelComment && (
+                  <>
+                    <p className="author">
+                      {
+                        comment?.snippet?.topLevelComment?.snippet
+                          ?.authorDisplayName
+                      }
+                    </p>
+                    <Text>
+                      {comment?.snippet?.topLevelComment?.snippet?.textDisplay}
+                    </Text>
+                  </>
+                )}
+              </VideoCommentsItem>
+            ))}
           </VideoCommentsContainer>
         </VideoItemDetails>
       </VideoItemContainer>
