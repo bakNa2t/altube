@@ -7,8 +7,8 @@ export const rapidConfig: IRapidConfigProps = {
 };
 
 export const BASE_URL = "https://youtube-v31.p.rapidapi.com";
-export const VIDEO_URL =
-  "https://youtube-v31.p.rapidapi.com/videos?part=contentDetails%2Csnippet%2Cstatistics&id=";
+export const VIDEO_URL = `${BASE_URL}/videos?part=contentDetails%2Csnippet%2Cstatistics&id=`;
+export const COMMENTS_URL = `${BASE_URL}/commentThreads?part=snippet&videoId=`;
 export const HOST = "youtube-v31.p.rapidapi.com";
 
 export const options = {
