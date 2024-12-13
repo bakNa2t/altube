@@ -156,6 +156,19 @@ const VideoItemDescription = styled.div`
   }
 `;
 
+const VideoItemComments = styled.div`
+  width: 100%;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  color: ${({ theme: { text } }) => text};
+
+  h1 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+`;
+
 const VideosSuggestionContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -181,6 +194,8 @@ const VideoItemWatch = () => {
     fetchFromApibyId,
     fetchVideoById,
     isFetchingVideos,
+    fetchVideoComments,
+    fetchVideoCommentsById,
     text,
     isAppbodyPath,
   } = useAppContext();
@@ -192,6 +207,12 @@ const VideoItemWatch = () => {
   useEffect(() => {
     fetchFromApibyId(id);
   }, [id]);
+
+  useEffect(() => {
+    fetchVideoCommentsById(id);
+  }, [id]);
+
+  console.log(fetchVideoComments);
 
   const desc = showDesc
     ? fetchVideoById?.snippet?.description
@@ -285,6 +306,9 @@ const VideoItemWatch = () => {
               )}
             </Text>
           </VideoItemDescription>
+          <VideoItemComments>
+            <h1>{fetchVideoById?.statistics?.commentCount} comments</h1>
+          </VideoItemComments>
         </VideoItemDetails>
       </VideoItemContainer>
       <VideosSuggestionContainer>
