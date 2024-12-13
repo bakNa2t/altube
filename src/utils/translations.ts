@@ -57,6 +57,8 @@ export interface ITranslations {
   subscribe: string;
   views: string;
   subscribers: string;
+  comments: string;
+  noComments: string;
 }
 
 const english: ITranslations = {
@@ -118,6 +120,8 @@ const english: ITranslations = {
   subscribe: "Subscribe",
   views: "Views",
   subscribers: "Subscribers",
+  comments: "Comments",
+  noComments: "No comments yet",
 };
 
 const russian: ITranslations = {
@@ -180,6 +184,8 @@ const russian: ITranslations = {
   subscribe: "Подписаться",
   views: "Просмотры",
   subscribers: "Подписчики",
+  comments: "Комментарии",
+  noComments: "Пока нет комментариев",
 };
 
 export const LANGUAGE = {
