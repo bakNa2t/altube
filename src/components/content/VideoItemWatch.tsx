@@ -177,10 +177,38 @@ const VideoCommentsItem = styled.div`
   display: flex;
   flex-direction: column;
 
+  .info {
+    display: flex;
+    /* flex-flow: row wrap; */
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    /* margin-left: 1rem; */
+    gap: 0.3rem;
+    font-size: 0.8rem;
+  }
+
+  .avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1000rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      object-fit: cover;
+    }
+  }
+
   .author {
     font-size: 0.9rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
     color: ${({ theme: { text } }) => text};
   }
 `;
@@ -332,17 +360,31 @@ const VideoItemWatch = () => {
             {fetchVideoComments?.map((comment, index) => (
               <VideoCommentsItem key={index}>
                 {comment?.snippet?.topLevelComment && (
-                  <>
-                    <p className="author">
-                      {
-                        comment?.snippet?.topLevelComment?.snippet
-                          ?.authorDisplayName
-                      }
-                    </p>
-                    <Text>
-                      {comment?.snippet?.topLevelComment?.snippet?.textDisplay}
-                    </Text>
-                  </>
+                  <div className="info">
+                    <div className="avatar">
+                      <img
+                        src={
+                          comment?.snippet?.topLevelComment?.snippet
+                            ?.authorProfileImageUrl
+                        }
+                        alt="avatar"
+                      />
+                    </div>
+                    <div className="details">
+                      <p className="author">
+                        {
+                          comment?.snippet?.topLevelComment?.snippet
+                            ?.authorDisplayName
+                        }
+                      </p>
+                      <Text>
+                        {
+                          comment?.snippet?.topLevelComment?.snippet
+                            ?.textDisplay
+                        }
+                      </Text>
+                    </div>
+                  </div>
                 )}
               </VideoCommentsItem>
             ))}
