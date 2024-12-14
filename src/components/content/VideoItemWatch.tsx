@@ -206,6 +206,12 @@ const VideoCommentsItem = styled.div`
     }
   }
 
+  .heading_desc {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
   .author {
     font-size: 0.9rem;
     font-weight: 600;
@@ -376,7 +382,7 @@ const VideoItemWatch = () => {
                       />
                     </div>
                     <div className="details">
-                      <div className="">
+                      <div className="heading_desc">
                         <p className="author">
                           {
                             comment?.snippet?.topLevelComment?.snippet
