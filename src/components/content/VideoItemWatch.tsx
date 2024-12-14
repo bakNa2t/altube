@@ -211,6 +211,11 @@ const VideoCommentsItem = styled.div`
     font-weight: 600;
     color: ${({ theme: { text } }) => text};
   }
+
+  .date {
+    color: ${({ theme: { color_grey_3 } }) => color_grey_3};
+    font-size: 0.8rem;
+  }
 `;
 
 const VideosSuggestionContainer = styled.div`
@@ -371,12 +376,17 @@ const VideoItemWatch = () => {
                       />
                     </div>
                     <div className="details">
-                      <p className="author">
-                        {
-                          comment?.snippet?.topLevelComment?.snippet
-                            ?.authorDisplayName
-                        }
-                      </p>
+                      <div className="">
+                        <p className="author">
+                          {
+                            comment?.snippet?.topLevelComment?.snippet
+                              ?.authorDisplayName
+                          }
+                        </p>
+                        <p className="date">
+                          {convertFormatDate(comment?.snippet?.publishedAt)}
+                        </p>
+                      </div>
                       <Text>
                         {
                           comment?.snippet?.topLevelComment?.snippet
