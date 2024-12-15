@@ -394,10 +394,14 @@ const VideoItemWatch = () => {
                         </p>
                       </div>
                       <Text>
-                        {
-                          comment?.snippet?.topLevelComment?.snippet
-                            ?.textDisplay
-                        }
+                        {comment?.snippet?.topLevelComment?.snippet?.textDisplay
+                          .length > 100
+                          ? `${comment?.snippet?.topLevelComment?.snippet?.textDisplay.slice(
+                              0,
+                              100
+                            )}...`
+                          : comment?.snippet?.topLevelComment?.snippet
+                              ?.textDisplay}
                       </Text>
                     </div>
                   </div>
