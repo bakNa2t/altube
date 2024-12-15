@@ -243,6 +243,7 @@ const Backdrop = styled.div`
 
 const VideoItemWatch = () => {
   const [showDesc, setShowDesc] = useState(false);
+  const [showComments, setShowComments] = useState(false);
   const { id } = useParams();
   const {
     dataVideos,
@@ -272,6 +273,10 @@ const VideoItemWatch = () => {
   const desc = showDesc
     ? fetchVideoById?.snippet?.description
     : fetchVideoById?.snippet?.description.slice(0, 200);
+
+  const handleSlice = (comment: string): string => {
+    return comment.length > 100 ? comment.slice(0, 100) : comment;
+  };
 
   console.log(fetchVideoById);
 
@@ -394,14 +399,20 @@ const VideoItemWatch = () => {
                         </p>
                       </div>
                       <Text>
-                        {comment?.snippet?.topLevelComment?.snippet?.textDisplay
-                          .length > 100
-                          ? `${comment?.snippet?.topLevelComment?.snippet?.textDisplay.slice(
-                              0,
-                              100
-                            )}...`
-                          : comment?.snippet?.topLevelComment?.snippet
-                              ?.textDisplay}
+                        {handleSlice(
+                          comment?.snippet?.topLevelComment?.snippet
+                            ?.textDisplay
+                        )}
+                        {showComments ? (
+                          <span onClick={() => setShowComments(!showComments)}>
+                            {" "}
+                            ...more
+                          </span>
+                        ) : (
+                          <span onClick={() => setShowComments(!showComments)}>
+                            Show less
+                          </span>
+                        )}
                       </Text>
                     </div>
                   </div>
