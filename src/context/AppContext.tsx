@@ -20,6 +20,7 @@ import { VideoProps } from "../interfaces/videos";
 import { IVideoDetails } from "../interfaces/videoDetails";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { switchThemeColor, switchTranslation } from "../store/appSlice";
+import { IVideoComments } from "../interfaces/videoComments";
 
 interface IAppContextVlaue {
   theme: "light" | "dark";
@@ -43,7 +44,7 @@ interface IAppContextVlaue {
   isAppbodyPath: boolean;
   showSettings: boolean;
   toggleSettingsDropMenu: () => void;
-  fetchVideoComments: any[];
+  fetchVideoComments: IVideoComments[];
   fetchVideoCommentsById: (id: string | undefined) => Promise<void>;
 }
 
@@ -65,7 +66,9 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [fetchVideoById, setFetchVideoById] = useState<
     IVideoDetails | undefined
   >(undefined);
-  const [fetchVideoComments, setFetchVideoComments] = useState<any[]>([]);
+  const [fetchVideoComments, setFetchVideoComments] = useState<
+    IVideoComments[]
+  >([]);
 
   const dispatch = useAppDispatch();
 
@@ -160,6 +163,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
       const data = JSON.parse(result);
 
       setFetchVideoComments(data.items);
+
+      console.log(data.items);
       setIsFetcingVideos(false);
     } catch (error) {
       console.error(error);
