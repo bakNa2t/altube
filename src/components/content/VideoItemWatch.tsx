@@ -252,6 +252,8 @@ const VideoItemWatch = () => {
     isFetchingVideos,
     fetchVideoComments,
     fetchVideoCommentsById,
+    fetchChannelDdetails,
+    fetchChannelDetailsById,
     text,
     isAppbodyPath,
   } = useAppContext();
@@ -271,8 +273,13 @@ const VideoItemWatch = () => {
     fetchVideoCommentsById(id);
   }, [id]);
 
+  useEffect(() => {
+    fetchChannelDetailsById(fetchVideoById?.snippet?.channelId);
+  }, [fetchVideoById?.snippet?.channelId]);
+
   console.log("data comments", fetchVideoComments);
   console.log("video by id", fetchVideoById);
+  console.log("channel details", fetchChannelDdetails);
 
   const desc = showDesc
     ? fetchVideoById?.snippet?.description
@@ -307,16 +314,17 @@ const VideoItemWatch = () => {
             <VideoItemInfo>
               <VideoItemChannelImg>
                 <img
-                  src={fetchVideoById?.snippet?.thumbnails?.medium?.url}
+                  src={fetchChannelDdetails?.snippet?.thumbnails?.medium?.url}
                   alt="channel avatar"
                 />
               </VideoItemChannelImg>
+
               <VideoItemChannelDetails>
                 <Text className="channel">
                   {fetchVideoById?.snippet?.channelTitle}
                 </Text>
                 <Text className="subscribers">
-                  {`${Math.floor(Math.random() * 100000)} ${text.subscribers}`}
+                  {`${fetchChannelDdetails?.statistics?.subscriberCount} ${text.subscribers}`}
                 </Text>
               </VideoItemChannelDetails>
               <SubscribeBtn>{text.subscribe}</SubscribeBtn>
