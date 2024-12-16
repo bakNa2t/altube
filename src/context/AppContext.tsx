@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ITranslations, LANGUAGE } from "../utils/translations";
 import {
   BASE_URL,
+  CHANNEL_URL,
   COMMENTS_URL,
   options,
   VIDEO_URL,
@@ -46,6 +47,8 @@ interface IAppContextVlaue {
   toggleSettingsDropMenu: () => void;
   fetchVideoComments: IVideoComments[];
   fetchVideoCommentsById: (id: string | undefined) => Promise<void>;
+  fetchChannelDdetails: any[];
+  fetchChannelDetailsById: (id: string | undefined) => Promise<void>;
 }
 
 interface IAppContextProps {
@@ -69,6 +72,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [fetchVideoComments, setFetchVideoComments] = useState<
     IVideoComments[]
   >([]);
+  const [fetchChannelDdetails, setFetchChannelDetails] = useState<any[]>([]);
 
   const dispatch = useAppDispatch();
 
@@ -164,6 +168,24 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
 
       setFetchVideoComments(data.items);
 
+      // console.log(data.items);
+      setIsFetcingVideos(false);
+    } catch (error) {
+      console.error(error);
+      setIsFetcingVideos(false);
+    }
+  };
+
+  //Fetch channel details by id
+  const fetchChannelDetailsById = async (id: string | undefined) => {
+    try {
+      setIsFetcingVideos(true);
+      const response = await fetch(`${CHANNEL_URL}${id}`, options);
+      const result = await response.text();
+      const data = JSON.parse(result);
+
+      setFetchChannelDetails(data?.items[0]);
+
       console.log(data.items);
       setIsFetcingVideos(false);
     } catch (error) {
@@ -201,6 +223,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     toggleSettingsDropMenu,
     fetchVideoComments,
     fetchVideoCommentsById,
+    fetchChannelDdetails,
+    fetchChannelDetailsById,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
