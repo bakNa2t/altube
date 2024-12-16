@@ -54,6 +54,12 @@ const Searchbox = () => {
     return <span>Browser doesn't support speech recognition.</span>;
   }
 
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setSearchBarText(searchValue);
+    }
+  };
+
   return (
     <StyledSearchbox>
       <StyledSearchBar>
@@ -61,6 +67,7 @@ const Searchbox = () => {
           value={searchValue}
           placeholder={text.search}
           onChange={(e) => setSearchValue(e.target.value)}
+          onKeyDown={handleInputKeyDown}
         />
         {/* Search Icon */}
         <IconStyle
