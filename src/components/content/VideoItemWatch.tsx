@@ -243,7 +243,7 @@ const Backdrop = styled.div`
 
 const VideoItemWatch = () => {
   const [showDesc, setShowDesc] = useState(false);
-  const [showComments, setShowComments] = useState(false);
+  // const [showComments, setShowComments] = useState(false);
   const { id } = useParams();
   const {
     dataVideos,
@@ -255,6 +255,9 @@ const VideoItemWatch = () => {
     text,
     isAppbodyPath,
   } = useAppContext();
+
+  // const { pathname } = useLocation();
+  // const isAppbodyPath = pathname.length === 1;
 
   if (!isAppbodyPath) {
     document.title = `Altube | ${fetchVideoById?.snippet?.title}`;
@@ -268,17 +271,16 @@ const VideoItemWatch = () => {
     fetchVideoCommentsById(id);
   }, [id]);
 
-  console.log(fetchVideoComments);
+  console.log("data comments", fetchVideoComments);
+  console.log("video by id", fetchVideoById);
 
   const desc = showDesc
     ? fetchVideoById?.snippet?.description
     : fetchVideoById?.snippet?.description.slice(0, 200);
 
-  const handleSlice = (comment: string): string => {
-    return comment.length > 100 ? comment.slice(0, 100) : comment;
-  };
-
-  console.log(fetchVideoById);
+  // const handleSlice = (comment: string): string => {
+  //   return comment.length > 100 ? comment.slice(0, 100) : comment;
+  // };
 
   if (isFetchingVideos) {
     return <Backdrop />;
@@ -395,11 +397,18 @@ const VideoItemWatch = () => {
                           }
                         </p>
                         <p className="date">
-                          {convertFormatDate(comment?.snippet?.publishedAt)}
+                          {convertFormatDate(
+                            comment?.snippet?.topLevelComment?.snippet
+                              ?.publishedAt
+                          )}
                         </p>
                       </div>
                       <Text>
-                        {handleSlice(
+                        {
+                          comment?.snippet?.topLevelComment?.snippet
+                            ?.textDisplay
+                        }
+                        {/* {handleSlice(
                           comment?.snippet?.topLevelComment?.snippet
                             ?.textDisplay
                         )}
@@ -412,7 +421,7 @@ const VideoItemWatch = () => {
                           <span onClick={() => setShowComments(!showComments)}>
                             Show less
                           </span>
-                        )}
+                        )} */}
                       </Text>
                     </div>
                   </div>
