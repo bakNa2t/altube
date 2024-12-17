@@ -124,7 +124,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   // Navigate to watch video by id
   useEffect(() => {
     if (watchVideoItem !== "") {
-      navigate(`/${watchVideoItem}`);
+      navigate(`/video/${watchVideoItem}`);
     }
   }, [watchVideoItem]);
 

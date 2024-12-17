@@ -111,8 +111,6 @@ const VideoItemBasic = ({ dataVideos, compactView }: IVideoItemBasicProps) => {
 
   const { isSideMenuShort, setWatchVideoItem } = useAppContext();
 
-  console.log(dataVideos);
-
   const { id, snippet } = dataVideos;
 
   const videoTitle = snippet.title;

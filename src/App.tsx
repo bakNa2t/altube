@@ -30,7 +30,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Appbody />} />
-          <Route path="/:id" element={<VideoItemWatch />} />
+          <Route path="/video/:id" element={<VideoItemWatch />} />
         </Routes>
       </AppContainer>
     </ThemeProvider>
