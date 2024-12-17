@@ -252,14 +252,11 @@ const VideoItemWatch = () => {
     isFetchingVideos,
     fetchVideoComments,
     fetchVideoCommentsById,
-    fetchChannelDdetails,
+    fetchChannelDetails,
     fetchChannelDetailsById,
     text,
     isAppbodyPath,
   } = useAppContext();
-
-  // const { pathname } = useLocation();
-  // const isAppbodyPath = pathname.length === 1;
 
   if (!isAppbodyPath) {
     document.title = `Altube | ${fetchVideoById?.snippet?.title}`;
@@ -279,7 +276,7 @@ const VideoItemWatch = () => {
 
   console.log("data comments", fetchVideoComments);
   console.log("video by id", fetchVideoById);
-  console.log("channel details", fetchChannelDdetails);
+  console.log("channel details", fetchChannelDetails);
 
   const desc = showDesc
     ? fetchVideoById?.snippet?.description
@@ -314,7 +311,7 @@ const VideoItemWatch = () => {
             <VideoItemInfo>
               <VideoItemChannelImg>
                 <img
-                  src={fetchChannelDdetails?.snippet?.thumbnails?.medium?.url}
+                  src={fetchChannelDetails?.snippet?.thumbnails?.medium?.url}
                   alt="channel avatar"
                 />
               </VideoItemChannelImg>
@@ -324,7 +321,7 @@ const VideoItemWatch = () => {
                   {fetchVideoById?.snippet?.channelTitle}
                 </Text>
                 <Text className="subscribers">
-                  {`${fetchChannelDdetails?.statistics?.subscriberCount} ${text.subscribers}`}
+                  {`${fetchChannelDetails?.statistics?.subscriberCount} ${text.subscribers}`}
                 </Text>
               </VideoItemChannelDetails>
               <SubscribeBtn>{text.subscribe}</SubscribeBtn>

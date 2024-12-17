@@ -19,10 +19,10 @@ import {
 } from "../utils/rapid-api/config";
 import { VideoProps } from "../interfaces/videos";
 import { IVideoDetails } from "../interfaces/videoDetails";
-import { useAppDispatch, useAppSelector } from "../store/store";
-import { switchThemeColor, switchTranslation } from "../store/appSlice";
 import { IVideoComments } from "../interfaces/videoComments";
 import { IChannelDetails } from "../interfaces/channelDetails";
+import { useAppDispatch, useAppSelector } from "../store/store";
+import { switchThemeColor, switchTranslation } from "../store/appSlice";
 
 interface IAppContextVlaue {
   theme: "light" | "dark";
@@ -48,7 +48,7 @@ interface IAppContextVlaue {
   toggleSettingsDropMenu: () => void;
   fetchVideoComments: IVideoComments[];
   fetchVideoCommentsById: (id: string | undefined) => Promise<void>;
-  fetchChannelDdetails: IChannelDetails;
+  fetchChannelDetails: IChannelDetails;
   fetchChannelDetailsById: (id: string | undefined) => Promise<void>;
 }
 
@@ -73,7 +73,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [fetchVideoComments, setFetchVideoComments] = useState<
     IVideoComments[]
   >([]);
-  const [fetchChannelDdetails, setFetchChannelDetails] =
+  const [fetchChannelDetails, setFetchChannelDetails] =
     useState<IChannelDetails>({} as IChannelDetails);
 
   const dispatch = useAppDispatch();
@@ -229,7 +229,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     toggleSettingsDropMenu,
     fetchVideoComments,
     fetchVideoCommentsById,
-    fetchChannelDdetails,
+    fetchChannelDetails,
     fetchChannelDetailsById,
   };
 
