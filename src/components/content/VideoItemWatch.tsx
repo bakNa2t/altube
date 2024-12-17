@@ -9,10 +9,10 @@ import { TiThumbsDown, TiThumbsUp } from "react-icons/ti";
 
 import VideoItemBasic from "./VideoItemBasic";
 
+import { Text } from "../../styles/TextStyle";
 import { useAppContext } from "../../context/AppContext";
 import { API_URL } from "../../utils/constants/env";
-import { Text } from "../../styles/TextStyle";
-import { convertFormatDate } from "../../utils/func";
+import { convertFormatDate, formatCountSubscriber } from "../../utils/func";
 
 const StyledVideoItemWatch = styled.div`
   position: relative;
@@ -179,16 +179,13 @@ const VideoCommentsItem = styled.div`
 
   .info {
     display: flex;
-    /* flex-flow: row wrap; */
-    flex-wrap: wrap;
     align-items: center;
-    gap: 1.5rem;
+    gap: 0.5rem;
   }
 
   .details {
     display: flex;
     flex-direction: column;
-    /* margin-left: 1rem; */
     gap: 0.3rem;
     font-size: 0.8rem;
   }
@@ -321,7 +318,9 @@ const VideoItemWatch = () => {
                   {fetchVideoById?.snippet?.channelTitle}
                 </Text>
                 <Text className="subscribers">
-                  {`${fetchChannelDetails?.statistics?.subscriberCount} ${text.subscribers}`}
+                  {`${formatCountSubscriber(
+                    fetchChannelDetails?.statistics?.subscriberCount
+                  )} ${text.subscribers}`}
                 </Text>
               </VideoItemChannelDetails>
               <SubscribeBtn>{text.subscribe}</SubscribeBtn>
