@@ -22,6 +22,7 @@ import { IVideoDetails } from "../interfaces/videoDetails";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { switchThemeColor, switchTranslation } from "../store/appSlice";
 import { IVideoComments } from "../interfaces/videoComments";
+import { IChannelDetails } from "../interfaces/channelDetails";
 
 interface IAppContextVlaue {
   theme: "light" | "dark";
@@ -47,7 +48,7 @@ interface IAppContextVlaue {
   toggleSettingsDropMenu: () => void;
   fetchVideoComments: IVideoComments[];
   fetchVideoCommentsById: (id: string | undefined) => Promise<void>;
-  fetchChannelDdetails: any[];
+  fetchChannelDdetails: IChannelDetails;
   fetchChannelDetailsById: (id: string | undefined) => Promise<void>;
 }
 
@@ -72,7 +73,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [fetchVideoComments, setFetchVideoComments] = useState<
     IVideoComments[]
   >([]);
-  const [fetchChannelDdetails, setFetchChannelDetails] = useState<any[]>([]);
+  const [fetchChannelDdetails, setFetchChannelDetails] =
+    useState<IChannelDetails>({} as IChannelDetails);
 
   const dispatch = useAppDispatch();
 
@@ -110,9 +112,13 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
 
   // Fetch videos data by search input
   useEffect(() => {
+    if (searchBarText.trim() === "") {
+      return;
+    }
     fetchFromApi(
       `search?q=${searchBarText}&part=snippet%2Cid&regionCode=US&maxResults=50&order=date`
     );
+    setIsFetcingVideos(false);
   }, [searchBarText]);
 
   // Navigate to watch video by id
@@ -184,7 +190,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
       const result = await response.text();
       const data = JSON.parse(result);
 
-      setFetchChannelDetails(data?.items[0]);
+      setFetchChannelDetails(data.items[0]);
 
       console.log(data.items);
       setIsFetcingVideos(false);
