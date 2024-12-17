@@ -42,3 +42,15 @@ export const convertFormatDate = (timestamp: string = ""): string => {
       return "Just now";
   }
 };
+
+export const formatCountSubscriber = (value: string): string => {
+  const number = parseInt(value, 10);
+
+  if (number >= 1000000) {
+    return `${(number / 1000000).toFixed(1)}M`;
+  } else if (number >= 1000) {
+    return `${(number / 1000).toFixed(1)}K`;
+  } else {
+    return number.toString();
+  }
+};
