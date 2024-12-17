@@ -179,7 +179,7 @@ const VideoCommentsItem = styled.div`
 
   .info {
     display: flex;
-    align-items: center;
+    align-items: self-start;
     gap: 0.5rem;
   }
 
@@ -194,6 +194,7 @@ const VideoCommentsItem = styled.div`
     width: 3rem;
     height: 3rem;
     border-radius: 1000rem;
+    flex-shrink: 0;
 
     img {
       width: 100%;
