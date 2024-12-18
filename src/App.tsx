@@ -5,6 +5,7 @@ import { DefaultTheme } from "styled-components/dist/types";
 import Header from "./components/header/Header";
 import Appbody from "./components/main/Appbody";
 import VideoItemWatch from "./components/content/VideoItemWatch";
+import ChannelItem from "./components/content/ChannelItem";
 
 import { useAppContext } from "./context/AppContext";
 import { THEMES } from "./styles/theme";
@@ -31,6 +32,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Appbody />} />
           <Route path="/video/:id" element={<VideoItemWatch />} />
+          <Route path="/channel/:id" element={<ChannelItem />} />
         </Routes>
       </AppContainer>
     </ThemeProvider>
