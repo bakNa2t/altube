@@ -13,6 +13,7 @@ import { ITranslations, LANGUAGE } from "../utils/translations";
 import {
   BASE_URL,
   CHANNEL_URL,
+  CHANNELS_VIDEOS_URL,
   COMMENTS_URL,
   options,
   VIDEO_URL,
@@ -50,6 +51,8 @@ interface IAppContextVlaue {
   fetchVideoCommentsById: (id: string | undefined) => Promise<void>;
   fetchChannelDetails: IChannelDetails;
   fetchChannelDetailsById: (id: string | undefined) => Promise<void>;
+  fetchChannelsVideos: VideoProps;
+  fetchChannelVideosById: (id: string | undefined) => Promise<void>;
 }
 
 interface IAppContextProps {
@@ -75,6 +78,10 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   >([]);
   const [fetchChannelDetails, setFetchChannelDetails] =
     useState<IChannelDetails>({} as IChannelDetails);
+
+  const [fetchChannelsVideos, setFetchChannelsVideos] = useState<VideoProps>(
+    {} as VideoProps
+  );
 
   const dispatch = useAppDispatch();
 
@@ -192,6 +199,27 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
 
       setFetchChannelDetails(data.items[0]);
 
+      // console.log(data.items);
+      setIsFetcingVideos(false);
+    } catch (error) {
+      console.error(error);
+      setIsFetcingVideos(false);
+    }
+  };
+
+  //Fetch channel videos by id
+  const fetchChannelVideosById = async (id: string | undefined) => {
+    try {
+      setIsFetcingVideos(true);
+      const response = await fetch(
+        `${CHANNELS_VIDEOS_URL}${id}&part=snippet%2Cid&order=date&maxResults=50`,
+        options
+      );
+      const result = await response.text();
+      const data = JSON.parse(result);
+
+      setFetchChannelsVideos(data.items);
+
       console.log(data.items);
       setIsFetcingVideos(false);
     } catch (error) {
@@ -231,6 +259,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     fetchVideoCommentsById,
     fetchChannelDetails,
     fetchChannelDetailsById,
+    fetchChannelsVideos,
+    fetchChannelVideosById,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
