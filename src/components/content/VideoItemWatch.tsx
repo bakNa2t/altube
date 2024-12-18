@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
 import { HiDotsHorizontal } from "react-icons/hi";
@@ -26,7 +26,7 @@ const StyledVideoItemWatch = styled.div`
 `;
 
 const VideoItemContainer = styled.div`
-  width: 100;
+  width: 100%;
   padding-top: 1.5rem;
 `;
 
@@ -64,8 +64,9 @@ const VideoItemInfo = styled.div`
 `;
 
 const VideoItemChannelImg = styled.div`
-  width: 2.3rem;
-  height: 2.3rem;
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
   border-radius: 1000rem;
 
   img {
@@ -307,12 +308,14 @@ const VideoItemWatch = () => {
           <Text className="title">{fetchVideoById?.snippet?.title}</Text>
           <VideoItemActions>
             <VideoItemInfo>
-              <VideoItemChannelImg>
-                <img
-                  src={fetchChannelDetails?.snippet?.thumbnails?.medium?.url}
-                  alt="channel avatar"
-                />
-              </VideoItemChannelImg>
+              <Link to={`/channel/${fetchVideoById?.snippet?.channelId}`}>
+                <VideoItemChannelImg>
+                  <img
+                    src={fetchChannelDetails?.snippet?.thumbnails?.medium?.url}
+                    alt="channel avatar"
+                  />
+                </VideoItemChannelImg>
+              </Link>
 
               <VideoItemChannelDetails>
                 <Text className="channel">
