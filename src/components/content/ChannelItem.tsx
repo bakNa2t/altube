@@ -26,10 +26,11 @@ const ChannelBanner = styled.div`
 const ChannelInfo = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 `;
 
 const ChannelIcon = styled.div`
+  flex-shrink: 0;
   width: 12rem;
   height: 12rem;
   border-radius: 50%;
@@ -42,7 +43,29 @@ const ChannelIcon = styled.div`
   }
 `;
 
-const ChannelDetails = styled.div``;
+const ChannelDetails = styled.div`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: ${({ theme: { text } }) => text};
+  }
+
+  .info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: ${({ theme: { color_grey_2 } }) => color_grey_2};
+  }
+
+  .description {
+    color: ${({ theme: { color_grey_2 } }) => color_grey_2};
+  }
+`;
 
 const ChannelItem = () => {
   const { fetchChannelDetails } = useAppContext();
@@ -66,7 +89,14 @@ const ChannelItem = () => {
           />
         </ChannelIcon>
         <ChannelDetails>
-          <Text>{fetchChannelDetails?.snippet?.title}</Text>
+          <h1>{fetchChannelDetails?.snippet?.title}</h1>
+          <div className="info">
+            <Text>{fetchChannelDetails?.snippet?.customUrl}</Text> •
+            <p>{fetchChannelDetails?.statistics?.subscriberCount}</p>
+          </div>
+          <p className="description">
+            {fetchChannelDetails?.snippet?.description}
+          </p>
         </ChannelDetails>
       </ChannelInfo>
     </StyledChannelItem>
