@@ -7,6 +7,7 @@ const StyledChannelItem = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 4rem;
+  gap: 2rem;
 `;
 
 const ChannelBanner = styled.div`
@@ -22,6 +23,27 @@ const ChannelBanner = styled.div`
   }
 `;
 
+const ChannelInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const ChannelIcon = styled.div`
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+  }
+`;
+
+const ChannelDetails = styled.div``;
+
 const ChannelItem = () => {
   const { fetchChannelDetails } = useAppContext();
 
@@ -35,7 +57,18 @@ const ChannelItem = () => {
           alt="banner"
         />
       </ChannelBanner>
-      <Text>{fetchChannelDetails?.snippet?.title}</Text>
+
+      <ChannelInfo>
+        <ChannelIcon>
+          <img
+            src={fetchChannelDetails?.snippet?.thumbnails?.medium?.url}
+            alt="icon"
+          />
+        </ChannelIcon>
+        <ChannelDetails>
+          <Text>{fetchChannelDetails?.snippet?.title}</Text>
+        </ChannelDetails>
+      </ChannelInfo>
     </StyledChannelItem>
   );
 };
