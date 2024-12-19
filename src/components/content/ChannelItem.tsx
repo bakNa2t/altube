@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Text } from "../../styles/TextStyle";
 import { useAppContext } from "../../context/AppContext";
 import { formatCountSubscriber } from "../../utils/func";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import VideoItemBasic from "./VideoItemBasic";
 
 const StyledChannelItem = styled.div`
@@ -85,6 +85,8 @@ const ChannelVideosThumbnails = styled.div`
 `;
 
 const ChannelItem = () => {
+  const [showDesc, setShowDesc] = useState(false);
+
   const {
     isAppbodyPath,
     fetchChannelDetails,
@@ -99,6 +101,10 @@ const ChannelItem = () => {
   useEffect(() => {
     fetchChannelVideosById(fetchChannelDetails?.id);
   }, []);
+
+  const channelDesc = showDesc
+    ? fetchChannelDetails?.snippet?.description
+    : fetchChannelDetails?.snippet?.description.slice(0, 100);
 
   console.log(fetchChannelsVideos);
 
@@ -130,7 +136,12 @@ const ChannelItem = () => {
             </p>
           </div>
           <p className="description">
-            {fetchChannelDetails?.snippet?.description}
+            {channelDesc}
+            {showDesc ? (
+              <span onClick={() => setShowDesc(!showDesc)}>Show less</span>
+            ) : (
+              <span onClick={() => setShowDesc(!showDesc)}> ...more</span>
+            )}
           </p>
         </ChannelDetails>
       </ChannelInfo>
