@@ -1,9 +1,14 @@
 import styled from "styled-components";
 
-import { useAppContext } from "../../context/AppContext";
 import { Text } from "../../styles/TextStyle";
+import { useAppContext } from "../../context/AppContext";
+import { formatCountSubscriber } from "../../utils/func";
+import { useEffect } from "react";
+import VideoItemBasic from "./VideoItemBasic";
 
 const StyledChannelItem = styled.div`
+  height: 100vh;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   padding: 0 4rem;
@@ -13,12 +18,12 @@ const StyledChannelItem = styled.div`
 const ChannelBanner = styled.div`
   width: 100%;
   height: 15rem;
-  overflow: hidden;
   border-radius: 1rem;
 
   img {
     width: 100%;
     height: 100%;
+    border-radius: inherit;
     object-fit: cover;
   }
 `;
@@ -27,6 +32,7 @@ const ChannelInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+  height: 12rem;
 `;
 
 const ChannelIcon = styled.div`
@@ -67,10 +73,26 @@ const ChannelDetails = styled.div`
   }
 `;
 
-const ChannelItem = () => {
-  const { fetchChannelDetails } = useAppContext();
+const ChannelVideos = styled.div`
+  padding: 1.6rem 1.5rem 2rem 0;
+`;
 
-  console.log(fetchChannelDetails);
+const ChannelVideosThumbnails = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 1rem;
+  row-gap: 3rem;
+`;
+
+const ChannelItem = () => {
+  const { fetchChannelDetails, fetchChannelsVideos, fetchChannelVideosById } =
+    useAppContext();
+
+  useEffect(() => {
+    fetchChannelVideosById(fetchChannelDetails?.id);
+  }, []);
+
+  console.log(fetchChannelsVideos);
 
   return (
     <StyledChannelItem>
@@ -92,13 +114,26 @@ const ChannelItem = () => {
           <h1>{fetchChannelDetails?.snippet?.title}</h1>
           <div className="info">
             <Text>{fetchChannelDetails?.snippet?.customUrl}</Text> •
-            <p>{fetchChannelDetails?.statistics?.subscriberCount}</p>
+            <p>
+              {formatCountSubscriber(
+                fetchChannelDetails?.statistics?.subscriberCount
+              )}{" "}
+              subscribers
+            </p>
           </div>
           <p className="description">
             {fetchChannelDetails?.snippet?.description}
           </p>
         </ChannelDetails>
       </ChannelInfo>
+
+      <ChannelVideos>
+        <ChannelVideosThumbnails>
+          {fetchChannelsVideos?.map((video, index) => (
+            <VideoItemBasic dataVideos={video} key={index}></VideoItemBasic>
+          ))}
+        </ChannelVideosThumbnails>
+      </ChannelVideos>
     </StyledChannelItem>
   );
 };
