@@ -51,7 +51,7 @@ interface IAppContextVlaue {
   fetchVideoCommentsById: (id: string | undefined) => Promise<void>;
   fetchChannelDetails: IChannelDetails;
   fetchChannelDetailsById: (id: string | undefined) => Promise<void>;
-  fetchChannelsVideos: VideoProps;
+  fetchChannelsVideos: VideoProps[];
   fetchChannelVideosById: (id: string | undefined) => Promise<void>;
 }
 
@@ -79,8 +79,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [fetchChannelDetails, setFetchChannelDetails] =
     useState<IChannelDetails>({} as IChannelDetails);
 
-  const [fetchChannelsVideos, setFetchChannelsVideos] = useState<VideoProps>(
-    {} as VideoProps
+  const [fetchChannelsVideos, setFetchChannelsVideos] = useState<VideoProps[]>(
+    []
   );
 
   const dispatch = useAppDispatch();
