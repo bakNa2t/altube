@@ -111,6 +111,8 @@ const ChannelItem = () => {
     fetchChannelVideosById(fetchChannelDetails?.id);
   }, []);
 
+  const hasChannelDesc = fetchChannelDetails?.snippet?.description.length > 0;
+
   const channelDesc = showDesc
     ? fetchChannelDetails?.snippet?.description
     : fetchChannelDetails?.snippet?.description.slice(0, 140);
@@ -146,22 +148,23 @@ const ChannelItem = () => {
           </div>
           <p className="description">
             {channelDesc.length > 0 ? channelDesc : "No description"}
-            {showDesc ? (
-              <span
-                className="show-less"
-                onClick={() => setShowDesc(!showDesc)}
-              >
-                Show less
-              </span>
-            ) : (
-              <span
-                className="show-more"
-                onClick={() => setShowDesc(!showDesc)}
-              >
-                {" "}
-                ...more
-              </span>
-            )}
+            {hasChannelDesc &&
+              (showDesc ? (
+                <span
+                  className="show-less"
+                  onClick={() => setShowDesc(!showDesc)}
+                >
+                  Show less
+                </span>
+              ) : (
+                <span
+                  className="show-more"
+                  onClick={() => setShowDesc(!showDesc)}
+                >
+                  {" "}
+                  ...more
+                </span>
+              ))}
           </p>
         </ChannelDetails>
       </ChannelInfo>
