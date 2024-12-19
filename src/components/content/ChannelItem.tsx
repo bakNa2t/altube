@@ -85,8 +85,16 @@ const ChannelVideosThumbnails = styled.div`
 `;
 
 const ChannelItem = () => {
-  const { fetchChannelDetails, fetchChannelsVideos, fetchChannelVideosById } =
-    useAppContext();
+  const {
+    isAppbodyPath,
+    fetchChannelDetails,
+    fetchChannelsVideos,
+    fetchChannelVideosById,
+  } = useAppContext();
+
+  if (!isAppbodyPath) {
+    document.title = `Altube | ${fetchChannelDetails?.snippet?.title}`;
+  }
 
   useEffect(() => {
     fetchChannelVideosById(fetchChannelDetails?.id);
