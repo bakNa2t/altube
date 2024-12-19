@@ -30,9 +30,8 @@ const ChannelBanner = styled.div`
 
 const ChannelInfo = styled.div`
   display: flex;
-  align-items: center;
+  align-items: self-start;
   gap: 1rem;
-  height: 12rem;
 `;
 
 const ChannelIcon = styled.div`
@@ -70,6 +69,16 @@ const ChannelDetails = styled.div`
 
   .description {
     color: ${({ theme: { color_grey_2 } }) => color_grey_2};
+
+    .show-less,
+    .show-more {
+      cursor: pointer;
+      color: ${({ theme: { color_grey_1 } }) => color_grey_1};
+    }
+
+    .show-less {
+      display: inline-block;
+    }
   }
 `;
 
@@ -104,7 +113,7 @@ const ChannelItem = () => {
 
   const channelDesc = showDesc
     ? fetchChannelDetails?.snippet?.description
-    : fetchChannelDetails?.snippet?.description.slice(0, 100);
+    : fetchChannelDetails?.snippet?.description.slice(0, 140);
 
   console.log(fetchChannelsVideos);
 
@@ -136,11 +145,22 @@ const ChannelItem = () => {
             </p>
           </div>
           <p className="description">
-            {channelDesc}
+            {channelDesc.length > 0 ? channelDesc : "No description"}
             {showDesc ? (
-              <span onClick={() => setShowDesc(!showDesc)}>Show less</span>
+              <span
+                className="show-less"
+                onClick={() => setShowDesc(!showDesc)}
+              >
+                Show less
+              </span>
             ) : (
-              <span onClick={() => setShowDesc(!showDesc)}> ...more</span>
+              <span
+                className="show-more"
+                onClick={() => setShowDesc(!showDesc)}
+              >
+                {" "}
+                ...more
+              </span>
             )}
           </p>
         </ChannelDetails>
