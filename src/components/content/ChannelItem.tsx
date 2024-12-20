@@ -123,7 +123,11 @@ const ChannelItem = () => {
     <StyledChannelItem>
       <ChannelBanner>
         <img
-          src={fetchChannelDetails?.brandingSettings?.image?.bannerExternalUrl}
+          src={
+            fetchChannelDetails?.brandingSettings?.image?.bannerExternalUrl
+              ? fetchChannelDetails?.brandingSettings?.image?.bannerExternalUrl
+              : "assets/images/default-banner.png"
+          }
           alt="banner"
         />
       </ChannelBanner>
