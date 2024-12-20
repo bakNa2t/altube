@@ -273,9 +273,11 @@ const VideoItemWatch = () => {
     fetchChannelDetailsById(fetchVideoById?.snippet?.channelId);
   }, [fetchVideoById?.snippet?.channelId]);
 
-  console.log("data comments", fetchVideoComments);
-  console.log("video by id", fetchVideoById);
-  console.log("channel details", fetchChannelDetails);
+  // console.log("data comments", fetchVideoComments);
+  // console.log("video by id", fetchVideoById);
+  // console.log("channel details", fetchChannelDetails);
+
+  const hasVideoDesc = fetchVideoById?.snippet?.description.length > 0;
 
   const desc = showDesc
     ? fetchVideoById?.snippet?.description
@@ -363,8 +365,8 @@ const VideoItemWatch = () => {
               </Text>
             </VideoItemStats>
             <Text>
-              {desc}
-              {showDesc ? (
+              {hasVideoDesc ? desc : "No descripton"}
+              {hasVideoDesc && showDesc ? (
                 <div className="more" onClick={() => setShowDesc(!showDesc)}>
                   Show less
                 </div>
