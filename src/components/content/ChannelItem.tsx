@@ -102,6 +102,22 @@ const ChannelVideosThumbnails = styled.div`
   row-gap: 3rem;
 `;
 
+const ChannelSubscribeButton = styled.div`
+  width: fit-content;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 100rem;
+  color: ${({ theme: { bgr } }) => bgr};
+  background-color: ${({ theme: { text } }) => text};
+
+  &:hover {
+    cursor: pointer;
+    color: ${({ theme: { color_grey_1 } }) => color_grey_1};
+    background-color: ${({ theme: { color_grey_3 } }) => color_grey_3};
+  }
+`;
+
 const ChannelItem = () => {
   const [showDesc, setShowDesc] = useState(false);
 
@@ -180,6 +196,7 @@ const ChannelItem = () => {
                 </span>
               ))}
           </p>
+          <ChannelSubscribeButton>{text.subscribe}</ChannelSubscribeButton>
         </ChannelDetails>
       </ChannelInfo>
 
