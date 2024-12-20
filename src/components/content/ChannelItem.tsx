@@ -84,6 +84,15 @@ const ChannelDetails = styled.div`
 
 const ChannelVideos = styled.div`
   padding: 1.6rem 1.5rem 2rem 0;
+
+  h2 {
+    width: 100%;
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid ${({ theme: { color_divider } }) => color_divider};
+    color: ${({ theme: { text } }) => text};
+  }
 `;
 
 const ChannelVideosThumbnails = styled.div`
@@ -174,6 +183,7 @@ const ChannelItem = () => {
       </ChannelInfo>
 
       <ChannelVideos>
+        <h2>Videos</h2>
         <ChannelVideosThumbnails>
           {fetchChannelsVideos?.map((video, index) => (
             <VideoItemBasic dataVideos={video} key={index}></VideoItemBasic>
