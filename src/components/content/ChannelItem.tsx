@@ -110,6 +110,7 @@ const ChannelItem = () => {
     fetchChannelDetails,
     fetchChannelsVideos,
     fetchChannelVideosById,
+    text,
   } = useAppContext();
 
   if (!isAppbodyPath) {
@@ -156,7 +157,7 @@ const ChannelItem = () => {
               {formatCountSubscriber(
                 fetchChannelDetails?.statistics?.subscriberCount
               )}{" "}
-              subscribers
+              {text.subscribers}
             </p>
           </div>
           <p className="description">
