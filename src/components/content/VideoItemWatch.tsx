@@ -148,12 +148,14 @@ const VideoItemDescription = styled.div`
   line-height: 1.5rem;
   background-color: ${({ theme: { bgr_second } }) => bgr_second};
 
-  .more {
-    color: ${({ theme: { text } }) => text};
+  .show-less,
+  .show-more {
+    cursor: pointer;
+    color: ${({ theme: { color_grey_1 } }) => color_grey_1};
+  }
 
-    &:hover {
-      cursor: pointer;
-    }
+  .show-less {
+    display: block;
   }
 `;
 
@@ -368,11 +370,17 @@ const VideoItemWatch = () => {
               {hasVideoDesc ? desc : "No descripton"}
               {hasVideoDesc &&
                 (showDesc ? (
-                  <div className="more" onClick={() => setShowDesc(!showDesc)}>
+                  <span
+                    className="show-less"
+                    onClick={() => setShowDesc(!showDesc)}
+                  >
                     Show less
-                  </div>
+                  </span>
                 ) : (
-                  <span className="more" onClick={() => setShowDesc(!showDesc)}>
+                  <span
+                    className="show-more"
+                    onClick={() => setShowDesc(!showDesc)}
+                  >
                     {" "}
                     ...more
                   </span>
