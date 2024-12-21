@@ -366,16 +366,17 @@ const VideoItemWatch = () => {
             </VideoItemStats>
             <Text>
               {hasVideoDesc ? desc : "No descripton"}
-              {hasVideoDesc && showDesc ? (
-                <div className="more" onClick={() => setShowDesc(!showDesc)}>
-                  Show less
-                </div>
-              ) : (
-                <span className="more" onClick={() => setShowDesc(!showDesc)}>
-                  {" "}
-                  ...more
-                </span>
-              )}
+              {hasVideoDesc &&
+                (showDesc ? (
+                  <div className="more" onClick={() => setShowDesc(!showDesc)}>
+                    Show less
+                  </div>
+                ) : (
+                  <span className="more" onClick={() => setShowDesc(!showDesc)}>
+                    {" "}
+                    ...more
+                  </span>
+                ))}
             </Text>
           </VideoItemDescription>
           <VideoCommentsContainer>
