@@ -374,15 +374,15 @@ const VideoItemWatch = () => {
                     className="show-less"
                     onClick={() => setShowDesc(!showDesc)}
                   >
-                    Show less
+                    {text.showLess}
                   </span>
                 ) : (
                   <span
                     className="show-more"
                     onClick={() => setShowDesc(!showDesc)}
                   >
-                    {" "}
-                    ...more
+                    {" ..."}
+                    {text.showMore}
                   </span>
                 ))}
             </Text>
