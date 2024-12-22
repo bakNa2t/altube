@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { useAppContext } from "../../context/AppContext";
+
 const StyledChannelNav = styled.div`
   display: flex;
   justify-content: start;
@@ -13,7 +15,7 @@ const StyledChannelNav = styled.div`
   color: ${({ theme: { text } }) => text};
 `;
 
-const NavItem = styled.div`
+const NavItem = styled.div<{ active?: boolean | string }>`
   display: flex;
   align-items: center;
   padding: 1rem 0;
@@ -26,11 +28,13 @@ const NavItem = styled.div`
 `;
 
 const ChannelNav = () => {
+  const { text } = useAppContext();
+
   return (
     <StyledChannelNav>
-      <NavItem>Home</NavItem>
-      <NavItem>Videos</NavItem>
-      <NavItem>Playlists</NavItem>
+      <NavItem>{text.home}</NavItem>
+      <NavItem>{text.videos}</NavItem>
+      <NavItem>{text.playlists}</NavItem>
     </StyledChannelNav>
   );
 };
