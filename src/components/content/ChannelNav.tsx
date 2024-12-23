@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { useAppContext } from "../../context/AppContext";
-import { useState } from "react";
 
 const StyledChannelNav = styled.div`
   display: flex;
@@ -36,12 +35,7 @@ const NavItem = styled.div<{ active?: boolean | string }>`
 `;
 
 const ChannelNav = () => {
-  const [activeNav, setActiveNav] = useState<string | null>(null);
-  const { text } = useAppContext();
-
-  const handleNavItemClick = (term: string) => {
-    setActiveNav(term);
-  };
+  const { text, activeNav, handleNavItemClick } = useAppContext();
 
   console.log(activeNav);
 
