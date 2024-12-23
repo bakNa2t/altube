@@ -97,6 +97,11 @@ const ChannelSection = styled.div<ChannelSectionProps>`
   width: 100%;
 `;
 
+const ChannelTrailersThumbnails = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const ChannelVideosThumbnails = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -206,6 +211,12 @@ const ChannelItem = () => {
 
       <ChannelVideos>
         <ChannelNav />
+        <ChannelSection
+          active={activeNav === "home"}
+          onClick={() => handleNavItemClick("home")}
+        >
+          <ChannelTrailersThumbnails>Channel Trailer</ChannelTrailersThumbnails>
+        </ChannelSection>
         <ChannelSection
           active={activeNav === "videos"}
           onClick={() => handleNavItemClick("videos")}
