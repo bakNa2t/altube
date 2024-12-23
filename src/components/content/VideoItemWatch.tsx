@@ -249,7 +249,7 @@ const VideoItemWatch = () => {
   const {
     dataVideos,
     fetchFromApibyId,
-    fetchVideoById,
+    dataVideoById,
     isFetchingVideos,
     fetchVideoComments,
     fetchVideoCommentsById,
@@ -260,7 +260,7 @@ const VideoItemWatch = () => {
   } = useAppContext();
 
   if (!isAppbodyPath) {
-    document.title = `Altube | ${fetchVideoById?.snippet?.title}`;
+    document.title = `Altube | ${dataVideoById?.snippet?.title}`;
   }
 
   useEffect(() => {
@@ -272,18 +272,18 @@ const VideoItemWatch = () => {
   }, [id]);
 
   useEffect(() => {
-    fetchChannelDetailsById(fetchVideoById?.snippet?.channelId);
-  }, [fetchVideoById?.snippet?.channelId]);
+    fetchChannelDetailsById(dataVideoById?.snippet?.channelId);
+  }, [dataVideoById?.snippet?.channelId]);
 
   // console.log("data comments", fetchVideoComments);
   // console.log("video by id", fetchVideoById);
   // console.log("channel details", fetchChannelDetails);
 
-  const hasVideoDesc = fetchVideoById?.snippet?.description.length > 0;
+  const hasVideoDesc = dataVideoById?.snippet?.description.length > 0;
 
   const desc = showDesc
-    ? fetchVideoById?.snippet?.description
-    : fetchVideoById?.snippet?.description.slice(0, 200);
+    ? dataVideoById?.snippet?.description
+    : dataVideoById?.snippet?.description.slice(0, 200);
 
   // const handleSlice = (comment: string): string => {
   //   return comment.length > 100 ? comment.slice(0, 100) : comment;
@@ -309,10 +309,10 @@ const VideoItemWatch = () => {
           />
         </VideoItemPlayer>
         <VideoItemDetails>
-          <Text className="title">{fetchVideoById?.snippet?.title}</Text>
+          <Text className="title">{dataVideoById?.snippet?.title}</Text>
           <VideoItemActions>
             <VideoItemInfo>
-              <Link to={`/channel/${fetchVideoById?.snippet?.channelId}`}>
+              <Link to={`/channel/${dataVideoById?.snippet?.channelId}`}>
                 <VideoItemChannelImg>
                   <img
                     src={fetchChannelDetails?.snippet?.thumbnails?.medium?.url}
@@ -323,7 +323,7 @@ const VideoItemWatch = () => {
 
               <VideoItemChannelDetails>
                 <Text className="channel">
-                  {fetchVideoById?.snippet?.channelTitle}
+                  {dataVideoById?.snippet?.channelTitle}
                 </Text>
                 <Text className="subscribers">
                   {`${formatCountSubscriber(
@@ -338,7 +338,7 @@ const VideoItemWatch = () => {
               <ActionButton>
                 <>
                   <TiThumbsUp size={18} />
-                  <Text>{fetchVideoById?.statistics?.likeCount}</Text>
+                  <Text>{dataVideoById?.statistics?.likeCount}</Text>
                 </>
                 <span className="divider">&nbsp;</span>
                 <TiThumbsDown size={18} />
@@ -361,9 +361,9 @@ const VideoItemWatch = () => {
           </VideoItemActions>
           <VideoItemDescription>
             <VideoItemStats>
-              <Text>{fetchVideoById?.statistics?.viewCount} views</Text>
+              <Text>{dataVideoById?.statistics?.viewCount} views</Text>
               <Text>
-                {convertFormatDate(fetchVideoById?.snippet?.publishedAt)}
+                {convertFormatDate(dataVideoById?.snippet?.publishedAt)}
               </Text>
             </VideoItemStats>
             <Text>
@@ -389,8 +389,8 @@ const VideoItemWatch = () => {
           </VideoItemDescription>
           <VideoCommentsContainer>
             <h1>
-              {fetchVideoById?.statistics?.commentCount
-                ? `${fetchVideoById?.statistics?.commentCount} ${text.comments}`
+              {dataVideoById?.statistics?.commentCount
+                ? `${dataVideoById?.statistics?.commentCount} ${text.comments}`
                 : text.noComments}
             </h1>
 
