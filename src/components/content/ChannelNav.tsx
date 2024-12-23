@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { useAppContext } from "../../context/AppContext";
+import { useState } from "react";
 
 const StyledChannelNav = styled.div`
   display: flex;
@@ -25,16 +26,45 @@ const NavItem = styled.div<{ active?: boolean | string }>`
     cursor: pointer;
     border-bottom: 2px solid ${({ theme: { text } }) => text};
   }
+
+  ${({ active, theme: { text } }) =>
+    active &&
+    `
+    border-bottom: 2px solid ${text};
+    color: ${text};
+  `}
 `;
 
 const ChannelNav = () => {
+  const [activeNav, setActiveNav] = useState<string | null>(null);
   const { text } = useAppContext();
+
+  const handleNavItemClick = (term: string) => {
+    setActiveNav(term);
+  };
+
+  console.log(activeNav);
 
   return (
     <StyledChannelNav>
-      <NavItem>{text.home}</NavItem>
-      <NavItem>{text.videos}</NavItem>
-      <NavItem>{text.playlists}</NavItem>
+      <NavItem
+        active={activeNav === "home"}
+        onClick={() => handleNavItemClick("home")}
+      >
+        {text.home}
+      </NavItem>
+      <NavItem
+        active={activeNav === "videos"}
+        onClick={() => handleNavItemClick("videos")}
+      >
+        {text.videos}
+      </NavItem>
+      <NavItem
+        active={activeNav === "playlists"}
+        onClick={() => handleNavItemClick("playlists")}
+      >
+        {text.playlists}
+      </NavItem>
     </StyledChannelNav>
   );
 };
