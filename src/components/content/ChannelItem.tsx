@@ -1,12 +1,16 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import ChannelNav from "./ChannelNav";
+import VideoItemBasic from "./VideoItemBasic";
 
 import { Text } from "../../styles/TextStyle";
 import { useAppContext } from "../../context/AppContext";
 import { formatCountSubscriber } from "../../utils/func";
-import { useEffect, useState } from "react";
-import VideoItemBasic from "./VideoItemBasic";
+
+interface ChannelSectionProps {
+  active: boolean;
+}
 
 const StyledChannelItem = styled.div`
   height: 100vh;
@@ -88,6 +92,11 @@ const ChannelVideos = styled.div`
   padding: 1.6rem 1.5rem 2rem 0;
 `;
 
+const ChannelSection = styled.div<ChannelSectionProps>`
+  display: ${({ active }) => (active ? "flex" : "none")};
+  width: 100%;
+`;
+
 const ChannelVideosThumbnails = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -120,6 +129,8 @@ const ChannelItem = () => {
     fetchChannelsVideos,
     fetchChannelVideosById,
     text,
+    activeNav,
+    handleNavItemClick,
   } = useAppContext();
 
   if (!isAppbodyPath) {
@@ -127,7 +138,7 @@ const ChannelItem = () => {
   }
 
   useEffect(() => {
-    fetchChannelVideosById(fetchChannelDetails?.id);
+    fetchChannelVideosById(fetchChannelDetails.id);
   }, []);
 
   const hasChannelDesc = fetchChannelDetails?.snippet?.description.length > 0;
@@ -195,11 +206,16 @@ const ChannelItem = () => {
 
       <ChannelVideos>
         <ChannelNav />
-        <ChannelVideosThumbnails>
-          {fetchChannelsVideos?.map((video, index) => (
-            <VideoItemBasic dataVideos={video} key={index}></VideoItemBasic>
-          ))}
-        </ChannelVideosThumbnails>
+        <ChannelSection
+          active={activeNav === "videos"}
+          onClick={() => handleNavItemClick("videos")}
+        >
+          <ChannelVideosThumbnails>
+            {fetchChannelsVideos?.map((video, index) => (
+              <VideoItemBasic dataVideos={video} key={index}></VideoItemBasic>
+            ))}
+          </ChannelVideosThumbnails>
+        </ChannelSection>
       </ChannelVideos>
     </StyledChannelItem>
   );
