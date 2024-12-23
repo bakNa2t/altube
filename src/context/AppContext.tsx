@@ -47,6 +47,8 @@ interface IAppContextVlaue {
   isAppbodyPath: boolean;
   showSettings: boolean;
   toggleSettingsDropMenu: () => void;
+  activeNav: string | null;
+  handleNavItemClick: (term: string) => void;
   fetchVideoComments: IVideoComments[];
   fetchVideoCommentsById: (id: string | undefined) => Promise<void>;
   fetchChannelDetails: IChannelDetails;
@@ -70,6 +72,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [isFetchingVideos, setIsFetcingVideos] = useState(false);
   const [watchVideoItem, setWatchVideoItem] = useState<string>("");
   const [showSettings, setShowSettings] = useState(false);
+  const [activeNav, setActiveNav] = useState<string | null>(null);
+  // fetch data
   const [dataVideoById, setFetchVideoById] = useState<IVideoDetails>(
     {} as IVideoDetails
   );
@@ -108,6 +112,11 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   // Toggle header settings drop menu
   const toggleSettingsDropMenu = () => {
     setShowSettings((state) => !state);
+  };
+
+  // Set active for channel's nav
+  const handleNavItemClick = (term: string) => {
+    setActiveNav(term);
   };
 
   // Fetch videos data by category
@@ -261,6 +270,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     fetchChannelDetailsById,
     fetchChannelsVideos,
     fetchChannelVideosById,
+    activeNav,
+    handleNavItemClick,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
