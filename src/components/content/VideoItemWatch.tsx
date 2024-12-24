@@ -244,7 +244,6 @@ const Backdrop = styled.div`
 
 const VideoItemWatch = () => {
   const [showDesc, setShowDesc] = useState(false);
-  // const [showComments, setShowComments] = useState(false);
   const { id } = useParams();
   const {
     dataVideos,
@@ -254,7 +253,6 @@ const VideoItemWatch = () => {
     fetchVideoComments,
     fetchVideoCommentsById,
     fetchChannelDetails,
-    fetchChannelDetailsById,
     text,
     isAppbodyPath,
   } = useAppContext();
@@ -270,14 +268,6 @@ const VideoItemWatch = () => {
   useEffect(() => {
     fetchVideoCommentsById(id);
   }, [id]);
-
-  useEffect(() => {
-    fetchChannelDetailsById(dataVideoById?.snippet?.channelId);
-  }, [dataVideoById?.snippet?.channelId]);
-
-  // console.log("data comments", fetchVideoComments);
-  // console.log("video by id", fetchVideoById);
-  // console.log("channel details", fetchChannelDetails);
 
   const hasVideoDesc = dataVideoById?.snippet?.description.length > 0;
 
