@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
 import styled from "styled-components";
 
 import ChannelNav from "./ChannelNav";
@@ -7,6 +8,7 @@ import VideoItemBasic from "./VideoItemBasic";
 import { Text } from "../../styles/TextStyle";
 import { useAppContext } from "../../context/AppContext";
 import { formatCountSubscriber } from "../../utils/func";
+import { API_URL } from "../../utils/constants/env";
 
 interface ChannelSectionProps {
   active: boolean;
@@ -95,11 +97,15 @@ const ChannelVideos = styled.div`
 const ChannelSection = styled.div<ChannelSectionProps>`
   display: ${({ active }) => (active ? "flex" : "none")};
   width: 100%;
+  margin-bottom: 2rem;
 `;
 
 const ChannelTrailersThumbnails = styled.div`
   display: flex;
-  align-items: center;
+  width: 50%;
+  height: 15rem;
+  border-radius: 1rem;
+  overflow: scroll;
 `;
 
 const ChannelVideosThumbnails = styled.div`
@@ -151,8 +157,6 @@ const ChannelItem = () => {
   const channelDesc = showDesc
     ? fetchChannelDetails?.snippet?.description
     : fetchChannelDetails?.snippet?.description.slice(0, 140);
-
-  console.log(fetchChannelsVideos);
 
   return (
     <StyledChannelItem>
@@ -215,7 +219,18 @@ const ChannelItem = () => {
           active={activeNav === "home"}
           onClick={() => handleNavItemClick("home")}
         >
-          <ChannelTrailersThumbnails>Channel Trailer</ChannelTrailersThumbnails>
+          <ChannelTrailersThumbnails>
+            <ReactPlayer
+              width="100%"
+              height="100%"
+              controls={false}
+              volume={0}
+              muted={false}
+              playing={false}
+              url={`${API_URL}${fetchChannelDetails?.brandingSettings?.channel?.unsubscribedTrailer}`}
+              style={{ width: "100%", height: "100%" }}
+            />
+          </ChannelTrailersThumbnails>
         </ChannelSection>
         <ChannelSection
           active={activeNav === "videos"}
