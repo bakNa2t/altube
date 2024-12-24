@@ -177,7 +177,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     }
   };
 
-  // Fetch video comments by id
+  // Fetch video COMMENTS by id
   const fetchVideoCommentsById = async (id: string | undefined) => {
     try {
       setIsFetcingVideos(true);
@@ -198,7 +198,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     }
   };
 
-  //Fetch channel details by id
+  //Fetch CHANNEL details by id
   const fetchChannelDetailsById = async (id: string | undefined) => {
     try {
       setIsFetcingVideos(true);
@@ -208,7 +208,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
 
       setFetchChannelDetails(data.items[0]);
 
-      // console.log(data.items);
+      console.log(data.items);
       setIsFetcingVideos(false);
     } catch (error) {
       console.error(error);
@@ -216,7 +216,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     }
   };
 
-  //Fetch channel videos by id
+  //Fetch CHANNEL videos by id
   const fetchChannelVideosById = async (id: string | undefined) => {
     try {
       setIsFetcingVideos(true);
@@ -229,7 +229,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
 
       setFetchChannelsVideos(data.items);
 
-      console.log(data.items);
+      // console.log(data.items);
       setIsFetcingVideos(false);
     } catch (error) {
       console.error(error);
