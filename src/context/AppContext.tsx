@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ITranslations, LANGUAGE } from "../utils/translations";
 import {
   BASE_URL,
+  CHANNEL_PLAYLISTS_VIDEOS_URL,
   CHANNEL_URL,
   CHANNELS_VIDEOS_URL,
   COMMENTS_URL,
@@ -55,6 +56,8 @@ interface IAppContextVlaue {
   fetchChannelDetailsById: (id: string | undefined) => Promise<void>;
   fetchChannelsVideos: VideoProps[];
   fetchChannelVideosById: (id: string | undefined) => Promise<void>;
+  fetchPlaylistVideos: VideoProps[];
+  fetchPlaylistVideosById: (id: string | undefined) => Promise<void>;
 }
 
 interface IAppContextProps {
@@ -84,6 +87,10 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     useState<IChannelDetails>({} as IChannelDetails);
 
   const [fetchChannelsVideos, setFetchChannelsVideos] = useState<VideoProps[]>(
+    []
+  );
+
+  const [fetchPlaylistVideos, setFetchPlaylistVideos] = useState<VideoProps[]>(
     []
   );
 
@@ -182,7 +189,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     try {
       setIsFetcingVideos(true);
       const response = await fetch(
-        `${COMMENTS_URL}${id}&maxResults=100`,
+        `${COMMENTS_URL}${id}&maxResults=30`,
         options
       );
       const result = await response.text();
@@ -221,13 +228,34 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     try {
       setIsFetcingVideos(true);
       const response = await fetch(
-        `${CHANNELS_VIDEOS_URL}${id}&part=snippet%2Cid&order=date&maxResults=50`,
+        `${CHANNELS_VIDEOS_URL}${id}&part=snippet%2Cid&order=date&maxResults=30`,
         options
       );
       const result = await response.text();
       const data = JSON.parse(result);
 
       setFetchChannelsVideos(data.items);
+
+      // console.log(data.items);
+      setIsFetcingVideos(false);
+    } catch (error) {
+      console.error(error);
+      setIsFetcingVideos(false);
+    }
+  };
+
+  //Fetch PLAYLIST videos by id
+  const fetchPlaylistVideosById = async (id: string | undefined) => {
+    try {
+      setIsFetcingVideos(true);
+      const response = await fetch(
+        `${CHANNEL_PLAYLISTS_VIDEOS_URL}${id}=snippet&maxResults=30`,
+        options
+      );
+      const result = await response.text();
+      const data = JSON.parse(result);
+
+      setFetchPlaylistVideos(data.items);
 
       // console.log(data.items);
       setIsFetcingVideos(false);
@@ -270,6 +298,8 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     fetchChannelDetailsById,
     fetchChannelsVideos,
     fetchChannelVideosById,
+    fetchPlaylistVideos,
+    fetchPlaylistVideosById,
     activeNav,
     handleNavItemClick,
   };
