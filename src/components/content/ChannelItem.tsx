@@ -139,6 +139,8 @@ const ChannelItem = () => {
     fetchChannelDetails,
     fetchChannelsVideos,
     fetchChannelVideosById,
+    fetchPlaylistVideos,
+    fetchPlaylistVideosById,
     text,
     activeNav,
     handleNavItemClick,
@@ -150,6 +152,10 @@ const ChannelItem = () => {
 
   useEffect(() => {
     fetchChannelVideosById(fetchChannelDetails.id);
+  }, []);
+
+  useEffect(() => {
+    fetchPlaylistVideosById(fetchChannelDetails.id);
   }, []);
 
   const hasChannelDesc = fetchChannelDetails?.snippet?.description.length > 0;
@@ -232,12 +238,24 @@ const ChannelItem = () => {
             />
           </ChannelTrailersThumbnails>
         </ChannelSection>
+
         <ChannelSection
           active={activeNav === "videos"}
           onClick={() => handleNavItemClick("videos")}
         >
           <ChannelVideosThumbnails>
             {fetchChannelsVideos?.map((video, index) => (
+              <VideoItemBasic dataVideos={video} key={index}></VideoItemBasic>
+            ))}
+          </ChannelVideosThumbnails>
+        </ChannelSection>
+
+        <ChannelSection
+          active={activeNav === "playlists"}
+          onClick={() => handleNavItemClick("playlists")}
+        >
+          <ChannelVideosThumbnails>
+            {fetchPlaylistVideos?.map((video, index) => (
               <VideoItemBasic dataVideos={video} key={index}></VideoItemBasic>
             ))}
           </ChannelVideosThumbnails>
