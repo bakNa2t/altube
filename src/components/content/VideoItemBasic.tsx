@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ReactPlayer from "react-player";
 import styled, { css } from "styled-components";
 
@@ -109,16 +109,11 @@ interface IVideoItemBasicProps {
 const VideoItemBasic = ({ dataVideos, compactView }: IVideoItemBasicProps) => {
   const [playPreviewVideo, setPlayPreviewVideo] = useState(false);
 
-  const { isSideMenuShort, setWatchVideoItem, fetchChannelDetailsById } =
-    useAppContext();
+  const { isSideMenuShort, setWatchVideoItem } = useAppContext();
 
   const { id, snippet } = dataVideos;
 
   const videoTitle = snippet.title;
-
-  useEffect(() => {
-    fetchChannelDetailsById(snippet.channelId);
-  }, [snippet.channelId]);
 
   return (
     <StyledVideoItemBasic
