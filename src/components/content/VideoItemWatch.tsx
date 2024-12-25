@@ -253,6 +253,7 @@ const VideoItemWatch = () => {
     fetchVideoComments,
     fetchVideoCommentsById,
     fetchChannelDetails,
+    fetchChannelDetailsById,
     text,
     isAppbodyPath,
   } = useAppContext();
@@ -264,6 +265,10 @@ const VideoItemWatch = () => {
   useEffect(() => {
     fetchFromApibyId(id);
   }, [id]);
+
+  useEffect(() => {
+    fetchChannelDetailsById(dataVideoById?.snippet?.channelId);
+  }, []);
 
   useEffect(() => {
     fetchVideoCommentsById(id);
