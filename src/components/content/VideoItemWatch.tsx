@@ -138,6 +138,10 @@ const VideoItemStats = styled.div`
   align-items: center;
   gap: 1rem;
   font-weight: 600;
+
+  .tag {
+    color: ${({ theme: { color_grey_1 } }) => color_grey_1};
+  }
 `;
 
 const VideoItemDescription = styled.div`
@@ -266,9 +270,13 @@ const VideoItemWatch = () => {
     fetchFromApibyId(id);
   }, [id]);
 
+  console.log(dataVideoById);
+
   useEffect(() => {
     fetchChannelDetailsById(dataVideoById?.snippet?.channelId);
-  }, []);
+  }, [dataVideoById?.snippet?.channelId]);
+
+  console.log(fetchVideoComments);
 
   useEffect(() => {
     fetchVideoCommentsById(id);
@@ -303,6 +311,7 @@ const VideoItemWatch = () => {
             style={{ width: "100%", height: "100%" }}
           />
         </VideoItemPlayer>
+
         <VideoItemDetails>
           <Text className="title">{dataVideoById?.snippet?.title}</Text>
           <VideoItemActions>
@@ -326,6 +335,7 @@ const VideoItemWatch = () => {
                   )} ${text.subscribers}`}
                 </Text>
               </VideoItemChannelDetails>
+
               <SubscribeBtn>{text.subscribe}</SubscribeBtn>
             </VideoItemInfo>
 
@@ -360,6 +370,12 @@ const VideoItemWatch = () => {
               <Text>
                 {convertFormatDate(dataVideoById?.snippet?.publishedAt)}
               </Text>
+
+              {dataVideoById?.snippet?.tags?.slice(0, 3).map((tag, index) => (
+                <span className="tag" key={index}>
+                  #{tag}
+                </span>
+              ))}
             </VideoItemStats>
             <Text>
               {hasVideoDesc ? desc : "No descripton"}
@@ -445,6 +461,7 @@ const VideoItemWatch = () => {
           </VideoCommentsContainer>
         </VideoItemDetails>
       </VideoItemContainer>
+
       <VideosSuggestionContainer>
         {dataVideos.map((video, index) => (
           <VideoItemBasic dataVideos={video} key={index} compactView />
