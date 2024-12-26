@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { Text } from "../../styles/TextStyle";
 import { convertFormatDate } from "../../utils/func";
+import { useAppContext } from "../../context/AppContext";
 import { IVideoComments } from "../../interfaces/videoComments";
 
 const CommnetItem = styled.div`
@@ -36,6 +37,16 @@ const CommentDetails = styled.div`
   flex-direction: column;
   gap: 0.3rem;
   font-size: 0.8rem;
+
+  .show-less,
+  .show-more {
+    cursor: pointer;
+    color: ${({ theme: { color_grey_1 } }) => color_grey_1};
+  }
+
+  .show-less {
+    display: block;
+  }
 `;
 
 const CommentHeading = styled.h2`
@@ -60,6 +71,14 @@ interface VideoItemCommentProps {
 }
 
 const VideoItemComment: React.FC<VideoItemCommentProps> = ({ comment }) => {
+  const [showFullComment, setShowFullComment] = useState(false);
+
+  const { text } = useAppContext();
+
+  const commentText = showFullComment
+    ? comment?.snippet?.topLevelComment?.snippet?.textDisplay
+    : comment?.snippet?.topLevelComment?.snippet?.textDisplay.slice(0, 200);
+
   return (
     <CommnetItem>
       <CommentInfo>
@@ -82,7 +101,27 @@ const VideoItemComment: React.FC<VideoItemCommentProps> = ({ comment }) => {
               )}
             </p>
           </CommentHeading>
-          <Text>{comment?.snippet?.topLevelComment?.snippet?.textDisplay}</Text>
+          <Text>
+            {commentText}
+            {comment?.snippet?.topLevelComment?.snippet?.textDisplay.length >
+              200 &&
+              (showFullComment ? (
+                <span
+                  className="show-less"
+                  onClick={() => setShowFullComment(!showFullComment)}
+                >
+                  {text.showLess}
+                </span>
+              ) : (
+                <span
+                  className="show-more"
+                  onClick={() => setShowFullComment(!showFullComment)}
+                >
+                  {" ..."}
+                  {text.showMore}
+                </span>
+              ))}
+          </Text>
         </CommentDetails>
       </CommentInfo>
     </CommnetItem>
