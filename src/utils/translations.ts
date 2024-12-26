@@ -57,6 +57,7 @@ export interface ITranslations {
   subscribe: string;
   views: string;
   subscribers: string;
+  noDescription: string;
   comments: string;
   noComments: string;
   playlists: string;
@@ -122,6 +123,7 @@ const english: ITranslations = {
   subscribe: "Subscribe",
   views: "Views",
   subscribers: "Subscribers",
+  noDescription: "No description has been added to this video.",
   comments: "Comments",
   noComments: "No comments yet",
   playlists: "Playlist",
@@ -188,6 +190,7 @@ const russian: ITranslations = {
   subscribe: "Подписаться",
   views: "Просмотры",
   subscribers: "Подписчики",
+  noDescription: "К этому видео не было добавлено описание.",
   comments: "Комментарии",
   noComments: "Пока нет комментариев",
   playlists: "Плейлисты",
