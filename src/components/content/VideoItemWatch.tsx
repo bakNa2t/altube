@@ -13,6 +13,7 @@ import { Text } from "../../styles/TextStyle";
 import { useAppContext } from "../../context/AppContext";
 import { API_URL } from "../../utils/constants/env";
 import { convertFormatDate, formatCountSubscriber } from "../../utils/func";
+import VideoItemComment from "./VideoItemComment";
 
 const StyledVideoItemWatch = styled.div`
   position: relative;
@@ -179,56 +180,6 @@ const VideoCommentsContainer = styled.div`
   }
 `;
 
-const VideoCommentsItem = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  .info {
-    display: flex;
-    align-items: self-start;
-    gap: 0.5rem;
-  }
-
-  .details {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    font-size: 0.8rem;
-  }
-
-  .avatar {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 1000rem;
-    flex-shrink: 0;
-
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: inherit;
-      object-fit: cover;
-    }
-  }
-
-  .heading_desc {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .author {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: ${({ theme: { text } }) => text};
-  }
-
-  .date {
-    color: ${({ theme: { color_grey_3 } }) => color_grey_3};
-    font-size: 0.8rem;
-  }
-`;
-
 const VideosSuggestionContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -287,10 +238,6 @@ const VideoItemWatch = () => {
   const desc = showDesc
     ? dataVideoById?.snippet?.description
     : dataVideoById?.snippet?.description.slice(0, 200);
-
-  // const handleSlice = (comment: string): string => {
-  //   return comment.length > 100 ? comment.slice(0, 100) : comment;
-  // };
 
   if (isFetchingVideos) {
     return <Backdrop />;
@@ -364,6 +311,7 @@ const VideoItemWatch = () => {
               </ActionButton>
             </VideoItemActionButtons>
           </VideoItemActions>
+
           <VideoItemDescription>
             <VideoItemStats>
               <Text>{dataVideoById?.statistics?.viewCount} views</Text>
@@ -378,7 +326,7 @@ const VideoItemWatch = () => {
               ))}
             </VideoItemStats>
             <Text>
-              {hasVideoDesc ? desc : "No descripton"}
+              {hasVideoDesc ? desc : text.noDescription}
               {hasVideoDesc &&
                 (showDesc ? (
                   <span
@@ -398,6 +346,7 @@ const VideoItemWatch = () => {
                 ))}
             </Text>
           </VideoItemDescription>
+
           <VideoCommentsContainer>
             <h1>
               {dataVideoById?.statistics?.commentCount
@@ -405,59 +354,12 @@ const VideoItemWatch = () => {
                 : text.noComments}
             </h1>
 
-            {fetchVideoComments?.map((comment, index) => (
-              <VideoCommentsItem key={index}>
-                {comment?.snippet?.topLevelComment && (
-                  <div className="info">
-                    <div className="avatar">
-                      <img
-                        src={
-                          comment?.snippet?.topLevelComment?.snippet
-                            ?.authorProfileImageUrl
-                        }
-                        alt="avatar"
-                      />
-                    </div>
-                    <div className="details">
-                      <div className="heading_desc">
-                        <p className="author">
-                          {
-                            comment?.snippet?.topLevelComment?.snippet
-                              ?.authorDisplayName
-                          }
-                        </p>
-                        <p className="date">
-                          {convertFormatDate(
-                            comment?.snippet?.topLevelComment?.snippet
-                              ?.publishedAt
-                          )}
-                        </p>
-                      </div>
-                      <Text>
-                        {
-                          comment?.snippet?.topLevelComment?.snippet
-                            ?.textDisplay
-                        }
-                        {/* {handleSlice(
-                          comment?.snippet?.topLevelComment?.snippet
-                            ?.textDisplay
-                        )}
-                        {showComments ? (
-                          <span onClick={() => setShowComments(!showComments)}>
-                            {" "}
-                            ...more
-                          </span>
-                        ) : (
-                          <span onClick={() => setShowComments(!showComments)}>
-                            Show less
-                          </span>
-                        )} */}
-                      </Text>
-                    </div>
-                  </div>
-                )}
-              </VideoCommentsItem>
-            ))}
+            {fetchVideoComments?.map(
+              (comment, index) =>
+                comment?.snippet?.topLevelComment && (
+                  <VideoItemComment key={index} comment={comment} />
+                )
+            )}
           </VideoCommentsContainer>
         </VideoItemDetails>
       </VideoItemContainer>
