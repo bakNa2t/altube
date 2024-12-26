@@ -27,6 +27,7 @@ export interface Snippet {
   liveBroadcastContent: string;
   localized: Localized;
   publishedAt: string;
+  tags?: string[];
   thumbnails: Thumbnails;
   title: string;
 }
