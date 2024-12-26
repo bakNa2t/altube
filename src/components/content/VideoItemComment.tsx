@@ -1,7 +1,9 @@
+import React from "react";
 import styled from "styled-components";
 
-import { IVideoComments } from "../../interfaces/videoComments";
 import { Text } from "../../styles/TextStyle";
+import { convertFormatDate } from "../../utils/func";
+import { IVideoComments } from "../../interfaces/videoComments";
 
 const CommnetItem = styled.div`
   width: 100%;
@@ -53,13 +55,33 @@ const CommentHeading = styled.h2`
   }
 `;
 
-const VideoItemComment = ({ comment }: IVideoComments) => {
+interface VideoItemCommentProps {
+  comment: IVideoComments;
+}
+
+const VideoItemComment: React.FC<VideoItemCommentProps> = ({ comment }) => {
   return (
     <CommnetItem>
       <CommentInfo>
-        <CommentAvatar></CommentAvatar>
+        <CommentAvatar>
+          <img
+            src={
+              comment?.snippet?.topLevelComment?.snippet?.authorProfileImageUrl
+            }
+            alt={comment?.snippet?.topLevelComment?.snippet?.authorDisplayName}
+          />
+        </CommentAvatar>
         <CommentDetails>
-          <CommentHeading></CommentHeading>
+          <CommentHeading>
+            <p className="author">
+              {comment?.snippet?.topLevelComment?.snippet?.authorDisplayName}
+            </p>
+            <p className="date">
+              {convertFormatDate(
+                comment?.snippet?.topLevelComment?.snippet?.publishedAt
+              )}
+            </p>
+          </CommentHeading>
           <Text>{comment?.snippet?.topLevelComment?.snippet?.textDisplay}</Text>
         </CommentDetails>
       </CommentInfo>
