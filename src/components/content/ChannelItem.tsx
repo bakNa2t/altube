@@ -269,11 +269,17 @@ const ChannelItem = () => {
           active={activeNav === "playlists"}
           onClick={() => handleNavItemClick("playlists")}
         >
-          <ChannelVideosThumbnails>
-            {fetchPlaylistVideos?.map((video, index) => (
-              <VideoItemBasic dataVideos={video} key={index}></VideoItemBasic>
-            ))}
-          </ChannelVideosThumbnails>
+          {fetchPlaylistVideos ? (
+            <ChannelVideosThumbnails>
+              {fetchPlaylistVideos?.map((video, index) => (
+                <VideoItemBasic dataVideos={video} key={index}></VideoItemBasic>
+              ))}
+            </ChannelVideosThumbnails>
+          ) : (
+            <div className="empty">
+              Channel has no playlists or could not load them
+            </div>
+          )}
         </ChannelSection>
       </ChannelVideos>
     </StyledChannelItem>
