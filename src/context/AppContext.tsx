@@ -58,6 +58,7 @@ interface IAppContextVlaue {
   fetchChannelVideosById: (id: string | undefined) => Promise<void>;
   fetchPlaylistVideos: VideoProps[];
   fetchPlaylistVideosById: (id: string | undefined) => Promise<void>;
+  handleParamId: (id: string | undefined) => void;
 }
 
 interface IAppContextProps {
@@ -125,6 +126,9 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const handleNavItemClick = (term: string) => {
     setActiveNav(term);
   };
+
+  //Set id param for watch video
+  const handleParamId = (id?: string) => setWatchVideoItem(id ?? "");
 
   // Fetch videos data by category
   useEffect(() => {
@@ -249,7 +253,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     try {
       setIsFetcingVideos(true);
       const response = await fetch(
-        `${CHANNEL_PLAYLISTS_VIDEOS_URL}${id}=snippet&maxResults=30`,
+        `${CHANNEL_PLAYLISTS_VIDEOS_URL}${id}=snippet&maxResults=50`,
         options
       );
       const result = await response.text();
@@ -257,7 +261,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
 
       setFetchPlaylistVideos(data.items);
 
-      // console.log(data.items);
+      console.log(data.items);
       setIsFetcingVideos(false);
     } catch (error) {
       console.error(error);
@@ -302,6 +306,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
     fetchPlaylistVideosById,
     activeNav,
     handleNavItemClick,
+    handleParamId,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
