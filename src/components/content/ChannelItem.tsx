@@ -98,6 +98,15 @@ const ChannelSection = styled.div<ChannelSectionProps>`
   display: ${({ active }) => (active ? "flex" : "none")};
   width: 100%;
   margin-bottom: 2rem;
+
+  .empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 15rem;
+    color: ${({ theme: { color_grey_2 } }) => color_grey_2};
+  }
 `;
 
 const ChannelTrailersThumbnails = styled.div`
@@ -225,18 +234,23 @@ const ChannelItem = () => {
           active={activeNav === "home"}
           onClick={() => handleNavItemClick("home")}
         >
-          <ChannelTrailersThumbnails>
-            <ReactPlayer
-              width="100%"
-              height="100%"
-              controls={false}
-              volume={0}
-              muted={false}
-              playing={false}
-              url={`${API_URL}${fetchChannelDetails?.brandingSettings?.channel?.unsubscribedTrailer}`}
-              style={{ width: "100%", height: "100%" }}
-            />
-          </ChannelTrailersThumbnails>
+          {fetchChannelDetails?.brandingSettings?.channel
+            ?.unsubscribedTrailer ? (
+            <ChannelTrailersThumbnails>
+              <ReactPlayer
+                width="100%"
+                height="100%"
+                controls={false}
+                volume={0}
+                muted={false}
+                playing={false}
+                url={`${API_URL}${fetchChannelDetails?.brandingSettings?.channel?.unsubscribedTrailer}`}
+                style={{ width: "100%", height: "100%" }}
+              />
+            </ChannelTrailersThumbnails>
+          ) : (
+            <div className="empty">Channel has no trailers</div>
+          )}
         </ChannelSection>
 
         <ChannelSection
