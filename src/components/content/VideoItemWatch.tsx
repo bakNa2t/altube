@@ -211,11 +211,16 @@ const VideoItemWatch = () => {
     fetchChannelDetailsById,
     text,
     isAppbodyPath,
+    handleParamId,
   } = useAppContext();
 
   if (!isAppbodyPath) {
     document.title = `Altube | ${dataVideoById?.snippet?.title}`;
   }
+
+  useEffect(() => {
+    handleParamId(id);
+  }, [id]);
 
   useEffect(() => {
     fetchFromApibyId(id);
