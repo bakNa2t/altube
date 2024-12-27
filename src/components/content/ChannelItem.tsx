@@ -153,6 +153,7 @@ const ChannelItem = () => {
     text,
     activeNav,
     handleNavItemClick,
+    watchVideoItem,
   } = useAppContext();
 
   if (!isAppbodyPath) {
@@ -164,7 +165,7 @@ const ChannelItem = () => {
   }, []);
 
   useEffect(() => {
-    fetchPlaylistVideosById(fetchChannelDetails.id);
+    fetchPlaylistVideosById(watchVideoItem);
   }, []);
 
   const hasChannelDesc = fetchChannelDetails?.snippet?.description.length > 0;
