@@ -258,11 +258,15 @@ const ChannelItem = () => {
           active={activeNav === "videos"}
           onClick={() => handleNavItemClick("videos")}
         >
-          <ChannelVideosThumbnails>
-            {fetchChannelsVideos?.map((video, index) => (
-              <VideoItemBasic dataVideos={video} key={index}></VideoItemBasic>
-            ))}
-          </ChannelVideosThumbnails>
+          {fetchChannelsVideos ? (
+            <ChannelVideosThumbnails>
+              {fetchChannelsVideos?.map((video, index) => (
+                <VideoItemBasic dataVideos={video} key={index}></VideoItemBasic>
+              ))}
+            </ChannelVideosThumbnails>
+          ) : (
+            <div className="empty">Channel has no videos</div>
+          )}
         </ChannelSection>
 
         <ChannelSection
