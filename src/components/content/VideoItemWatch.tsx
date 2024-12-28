@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { PiListPlusFill } from "react-icons/pi";
 import { IoArrowRedoOutline } from "react-icons/io5";
+import { HiOutlineUserCircle } from "react-icons/hi2";
 import { TiThumbsDown, TiThumbsUp } from "react-icons/ti";
 
 import VideoItemBasic from "./VideoItemBasic";
@@ -269,12 +270,20 @@ const VideoItemWatch = () => {
           <VideoItemActions>
             <VideoItemInfo>
               <Link to={`/channel/${dataVideoById?.snippet?.channelId}`}>
-                <VideoItemChannelImg>
-                  <img
-                    src={fetchChannelDetails?.snippet?.thumbnails?.medium?.url}
-                    alt="channel avatar"
-                  />
-                </VideoItemChannelImg>
+                {fetchChannelDetails?.snippet?.thumbnails ? (
+                  <VideoItemChannelImg>
+                    <img
+                      src={
+                        fetchChannelDetails?.snippet?.thumbnails?.medium?.url
+                      }
+                      alt="channel avatar"
+                    />
+                  </VideoItemChannelImg>
+                ) : (
+                  <VideoItemChannelImg>
+                    <HiOutlineUserCircle />
+                  </VideoItemChannelImg>
+                )}
               </Link>
 
               <VideoItemChannelDetails>
