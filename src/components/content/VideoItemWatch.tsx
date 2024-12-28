@@ -71,6 +71,12 @@ const VideoItemChannelImg = styled.div`
   height: 3rem;
   border-radius: 1000rem;
 
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0 0.5rem rgba(39, 68, 129, 0.3),
+      0 0 1.5rem rgba(39, 68, 129, 0.5);
+  }
+
   img {
     width: 100%;
     height: 100%;
@@ -107,6 +113,8 @@ const SubscribeBtn = styled.div`
 
   &:hover {
     cursor: pointer;
+    box-shadow: 0 0 0.5rem rgba(39, 68, 129, 0.3),
+      0 0 1.5rem rgba(39, 68, 129, 0.5);
   }
 `;
 
@@ -128,6 +136,8 @@ const ActionButton = styled.div`
 
   &:hover {
     cursor: pointer;
+    box-shadow: 0 0 0.5rem rgba(39, 68, 129, 0.3),
+      0 0 1.5rem rgba(39, 68, 129, 0.5);
   }
 
   .divider {
