@@ -37,8 +37,6 @@ const NavItem = styled.div<{ active?: boolean | string }>`
 const ChannelNav = () => {
   const { text, activeNav, handleNavItemClick } = useAppContext();
 
-  console.log(activeNav);
-
   return (
     <StyledChannelNav>
       <NavItem

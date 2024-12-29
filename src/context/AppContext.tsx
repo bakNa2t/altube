@@ -76,7 +76,7 @@ export const AppContextProvider = ({ children }: IAppContextProps) => {
   const [isFetchingVideos, setIsFetcingVideos] = useState(false);
   const [watchVideoItem, setWatchVideoItem] = useState<string>("");
   const [showSettings, setShowSettings] = useState(false);
-  const [activeNav, setActiveNav] = useState<string | null>(null);
+  const [activeNav, setActiveNav] = useState<string | null>("home");
   // fetch data
   const [dataVideoById, setFetchVideoById] = useState<IVideoDetails>(
     {} as IVideoDetails
