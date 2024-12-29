@@ -83,6 +83,12 @@ const VideoItemChannelImg = styled.div`
     border-radius: inherit;
     object-fit: cover;
   }
+
+  .no-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const VideoItemChannelDetails = styled.div`
@@ -291,7 +297,9 @@ const VideoItemWatch = () => {
                   </VideoItemChannelImg>
                 ) : (
                   <VideoItemChannelImg>
-                    <HiOutlineUserCircle />
+                    <div className="no-avatar">
+                      <HiOutlineUserCircle size={40} />
+                    </div>
                   </VideoItemChannelImg>
                 )}
               </Link>
