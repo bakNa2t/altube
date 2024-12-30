@@ -1,4 +1,6 @@
-# React + TypeScript + Styled Components + Vite app
+# Altube (React + TypeScript + Styled Components + Vite)
+
+Altube is a YouTube clone built with React, TypeScript, and Styled Components. It uses Vite as the build tool and React Router for routing, utilizing the Rapid API for data fetching. The application features a robust state management system using Redux Toolkit and showcases videos using the React Player library.
 
 #### Getting Started
 
