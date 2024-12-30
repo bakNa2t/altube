@@ -33,7 +33,7 @@ const StyledSideMenuFullRow = styled.div`
   }
 `;
 
-const StyledSideMenuShortRow = styled.div<{ active: boolean }>`
+const StyledSideMenuShortRow = styled.div<{ active?: boolean | string }>`
   display: flex;
   border-radius: 0.5rem;
   color: ${({ theme: { text } }) => text};
@@ -95,22 +95,24 @@ const Sidemenu = () => {
                 {text[title as keyof ITranslations]}
               </Text>
             )}
-            {list.map(({ name, icon }) => (
-              <StyledSideMenuShortRow
-                className="full"
-                key={name}
-                active={
-                  activeMenuLink.toLowerCase() ===
-                  text[name as keyof ITranslations].toLowerCase()
-                }
-              >
-                {icon}
-                <Text>{text[name as keyof ITranslations]}</Text>
-              </StyledSideMenuShortRow>
-            ))}
+            <>
+              {list.map(({ name, icon }) => (
+                <StyledSideMenuShortRow
+                  className="full"
+                  key={name}
+                  active={
+                    activeMenuLink.toLowerCase() ===
+                    text[name as keyof ITranslations].toLowerCase()
+                  }
+                >
+                  {icon}
+                  <Text>{text[name as keyof ITranslations]}</Text>
+                </StyledSideMenuShortRow>
+              ))}
+            </>
           </StyledSideMenuFullRow>
           {index === 1 && (
-            <StyledSideMenuFullRow key={index} className="text">
+            <StyledSideMenuFullRow key={index + 1} className="text">
               <Text>{text.signInMenuText}</Text>
               <AuthBtn />
             </StyledSideMenuFullRow>
